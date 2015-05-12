@@ -13,8 +13,25 @@ require 'modele.php';
 	<script type="text/javascript">
 	/*	setInterval("recupereIncidents()",1000)*/
 
-	</script>
-	<script type="text/javascript">
+	function insereNotification(idNotification, typeIncident, descriptionIncident)
+	{
+		var idJQNotif = '#notif_' + idNotification;
+
+		if ($(idJQNotif).length <= 0) {
+
+			$('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
+				'<h2> ' + typeIncident + ' </h2>' +
+				'<p> ' + descriptionIncident + ' </p>' +
+				'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
+				'<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
+			'</div>');
+
+			$('#main').collapsibleset();
+		}
+	}
+
+	/////////////////////////////
+
 	var map ;
 	var pos ;
 	var bAjoutIncident = 0;
@@ -178,10 +195,18 @@ require 'modele.php';
 				<p>Alerte ajoutée</p>
 			</div>
 
-			<div data-role="content" class="ui-content">
+			<div id="main" role="main" data-role="content" class="ui-content">
 				<p>SafeRoad<p>
 					<p>Parce que nous qu'on aime bien les routes sures<p>
-						<div id="map" style="height:300px; width:100%;" ></div>
+
+								<div class = "notification" data-role = "collapsible" id = "notif_0" hidden>
+									<h2> vide </h2>
+									<p> vide </p>
+									<button class="ui-btn ui-btn-inline ui-mini">Editer</button>
+									<button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
+								</div>
+
+						<div id="map" style="height:500px; width:100%;" ></div>
 						<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
 					</div>
 
