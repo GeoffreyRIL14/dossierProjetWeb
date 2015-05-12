@@ -22,8 +22,7 @@ function getIncident($lattitude, $longitude, $distance)
 
     $stmt = $bdd->prepare($requete);
     $stmt->execute();
-
-    $lignes = $stmt->fetch();
+    $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $lignes;
 }
 
