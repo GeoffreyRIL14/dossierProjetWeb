@@ -13,8 +13,25 @@ require 'modele.php';
 	<script type="text/javascript">
 	/*	setInterval("recupereIncidents()",1000)*/
 
-	</script>
-	<script type="text/javascript">
+	function insereNotification(idNotification, typeIncident, descriptionIncident)
+	{
+		var idJQNotif = '#notif_' + idNotification;
+
+		if ($(idJQNotif).length <= 0) {
+
+			$('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
+				'<h2> ' + typeIncident + ' </h2>' +
+				'<p> ' + descriptionIncident + ' </p>' +
+				'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
+				'<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
+			'</div>');
+
+			$('#main').collapsibleset();
+		}
+	}
+
+	/////////////////////////////
+
 	var map ;
 	var pos ;
 	var bAjoutIncident = 0;
