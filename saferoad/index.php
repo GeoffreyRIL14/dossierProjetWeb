@@ -186,7 +186,7 @@ require 'modele.php';
 				<!-- MODIF ANTOINE -->
 				<a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
 				<!-- MODIF ANTOINE -->
-				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">retour</a>
+				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
 			</div>
 
 			<div data-role="panel" id="param"> 
