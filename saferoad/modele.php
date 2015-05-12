@@ -15,13 +15,11 @@ function getIncident($lattitude, $longitude, $distance)
     $stmt = $bdd->prepare($requete);
     $stmt->execute();
 
-    $ligne = $stmt->fetch();
-    echo $ligne[0];
-    // $distance est la distance en KM max choisie
-
-    //$sql="SELECT ville,$formule AS dist FROM ville WHERE $formule<='$_GET[distance]' ORDER by dist ASC";
-
-    //return $incidents['idIncident']->fetch(); // Accès à la première ligne de résultat
+    $lignes = $stmt->fetch();
+    foreach ($lignes as $ligne) {
+       $json = $ligne['descriptionIncident'] .',' .$ligne['lattitudeIncident'] .',' .$ligne['longitudeIncident'] ;
+    }
+    echo $json ;
 }
 
 // ajoute un incident

@@ -130,6 +130,7 @@ require 'modele.php';
 			});
 		}
 		recuperePos(0);
+		recupereIncidents();
 		</script>
 
 	</head>
@@ -182,7 +183,7 @@ require 'modele.php';
 			<div data-role="content" class="ui-content">
 				<p>SafeRoad<p>
 					<p>Parce que nous qu'on aime bien les routes sures<p>
-						<div id="map" style="height:500px; width:100%;" ></div>
+						<div id="map" style="height:300px; width:100%;" ></div>
 						<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
 					</div>
 
