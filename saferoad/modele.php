@@ -1,4 +1,12 @@
 <?php
+function getTypesIncident()
+{
+    $bdd = getBdd();
+    $incidents = $bdd->query('SELECT *'
+        . ' FROM Type_incident');
+    return $incidents->fetchAll();
+}
+
 //recupère un incident MODIF ALEXANDRE
 function getIncident($lattitude, $longitude, $distance)
 {
