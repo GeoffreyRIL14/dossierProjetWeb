@@ -146,14 +146,12 @@ require 'modele.php';
 					<select name="typeIncident" id="typeIncident">
 						<optgroup label="Type d'incident">
 							<?php
+							
 						/* modif Geoffrey */
 						$listeIncidents = array();
 						$listeIncidents = getTypesIncident();
-
-						foreach ($listeIncidents as $ligne) {
-							echo '<option value="' . $ligne['idType'] . '">' . $ligne['nomType'] . '</option>';
-							# code...
-						}
+						die($listeIncidents);
+						
 
 /*						<option value="acc">Accident</option>
 						<option value="anm">Animal mort</option>
