@@ -167,7 +167,10 @@ require 'modele.php';
 						/* modif Geoffrey */
 						$listeIncidents = array();
 						$listeIncidents = getTypesIncident();
-						die($listeIncidents);
+						foreach ($listeIncidents as $ligne) {
+							echo '<option value="' . $ligne['idType'] . '">' . $ligne['nomType'] . '</option>';
+							# code...
+						}
 						
 
 /*						<option value="acc">Accident</option>
