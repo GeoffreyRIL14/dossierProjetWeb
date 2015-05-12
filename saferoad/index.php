@@ -192,6 +192,8 @@ require 'modele.php';
 			<div data-role="panel" id="param"> 
 				<h2>Modifier les paramètres utilisateurs</h2>
 				<p>blablabla..</p>
+
+				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
 			</div>
 
 			<div data-role="popup" id="myPopup">
