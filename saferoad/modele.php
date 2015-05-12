@@ -1,15 +1,4 @@
 <?php
-//recupère un incident
-function getIncident()
-{
-    $bdd = getBdd();
-    $incidents = $bdd->query('SELECT *'
-        . ' FROM Incident'
-        . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)');
-    return $incidents->fetch(); // Accès à la première ligne de résultat
-}
-
-
 
 // ajoute un incident
 function setIncident($desc, $idType, $lat, $lng)
