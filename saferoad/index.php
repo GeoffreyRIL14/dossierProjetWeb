@@ -79,7 +79,18 @@ require 'modele.php';
 				url: './ajax/recupereIncidents.php',
 				data: {},  
 				success: function(data, textStatus, jqXHR){
-					console.log(data);
+					//Chaque incident
+					var incident = data.split("/");	
+					for (var i = incident.length - 1; i >= 0; i--) {
+						var param = incident[i].split(",");
+						var description = param[0];
+						var lat = param[1];
+						var lng = param[2];
+						var idType = param[3];
+						if (lat != null)
+						ajoutMarqueur(description, lat, lng, idType);
+					};
+					//chaque argument d'incident		
 					/*ajoutMarqueur(data);*/
 				},
 				error: function(jqXHR, textStatus, errorThrown){
@@ -107,10 +118,13 @@ require 'modele.php';
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
 			if (!bAjoutIncident)
+			{
 				Initialisation(latitude,longitude);
+			}
 			else
+			{
 				ajoutIncident(latitude, longitude);
-				bAjoutIncident = 0;
+			}
 
 		}
 
@@ -127,18 +141,22 @@ require 'modele.php';
 				            mapTypeId: google.maps.MapTypeId.ROADMAP
 			        };
 			map = new google.maps.Map(document.getElementById("map"), myOptions);
-			ajoutMarqueur(pos,"");       
+			ajoutMarqueur();  
 		}
 
 		//Ajoute UN marqueur et affiche la description de l'incident sur le click
-		function ajoutMarqueur(desc)
+		function ajoutMarqueur(desc, lat, lng, idType)
 		{
-			var optionsMarqueur = {
-				position: pos,
-				map: map,
-			}
+			if (lat != null)
+			pos = new google.maps.LatLng(lat, lng)
+
+				var optionsMarqueur = {
+					position: pos,
+					map: map,
+				}
+			
 			var marqueur = new google.maps.Marker(optionsMarqueur);
-			var contenuInfoBulle = 'Je suis ici';
+			var contenuInfoBulle = desc;
 			var infoBulle = new google.maps.InfoWindow({
 				content: contenuInfoBulle
 			})
@@ -147,7 +165,7 @@ require 'modele.php';
 			});
 		}
 		recuperePos(0);
-		recupereIncidents();
+		
 		</script>
 
 	</head>
@@ -219,7 +237,7 @@ require 'modele.php';
 					<div data-role="footer" data-position="fixed">
 						<div data-role="navbar">
 							<ul>
-								<li><a href="#param" data-role="button" data-icon="user">Paramètres</a></li>
+								<li><a onclick ="recupereIncidents();"href="#param" data-role="button" data-icon="user">Paramètres</a></li>
 								<li><a href="#signaler" data-role="button" data-icon="location">Signaler incident</a></li>
 							</ul>
 						</div>
