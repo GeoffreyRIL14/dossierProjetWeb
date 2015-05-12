@@ -13,7 +13,7 @@ function getIncident($lattitude, $longitude, $distance)
     $bdd = getBdd();
 
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
-    $requete = 'SELECT Incident.*, '.$formule.' AS dist'
+    $requete = 'SELECT distinct Incident.descriptionIncident, Incident.descriptionIncident, Incident.lattitudeIncident, Incident.longitudeIncident, Incident.idType,  '.$formule.' AS dist'
         . ' FROM Incident'
         . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
@@ -24,20 +24,17 @@ function getIncident($lattitude, $longitude, $distance)
     $stmt->execute();
 
     $lignes = $stmt->fetch();
-    foreach ($lignes as $ligne) {
-       $json = $ligne['descriptionIncident'] .',' .$ligne['lattitudeIncident'] .',' .$ligne['longitudeIncident'] ;
-    }
-    echo $json ;
+    return $lignes;
 }
 
 // ajoute un incident
-function setIncident($desc, $idType)
+function setIncident($desc, $idType,$lat, $lng)
 {
     $bdd = getBdd();
     $incident = $bdd->prepare('INSERT INTO incident'
-            . '(descriptionIncident, idCredibilite, incidentEnCours,idType)'
-            . ' VALUES (?,?,?,?)'); 
-    $param = array($desc, 1, 1, $idType);
+            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident)'
+            . ' VALUES (?,?,?,?,?,?)'); 
+    $param = array($desc, 1, 1, $idType, $lat, $lng);
     $incident->execute($param);
 }
 

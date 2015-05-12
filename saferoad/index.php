@@ -79,8 +79,8 @@ require 'modele.php';
 				url: './ajax/recupereIncidents.php',
 				data: {},  
 				success: function(data, textStatus, jqXHR){
-					alert(data);
-					ajoutMarqueur(data);
+					console.log(data);
+					/*ajoutMarqueur(data);*/
 				},
 				error: function(jqXHR, textStatus, errorThrown){
 					alert(errorThrown);
