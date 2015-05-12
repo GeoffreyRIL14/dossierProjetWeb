@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<script>
+// --------------------------------------------
+// pour les terminaux dont la position change !
+// --------------------------------------------
+
+var watchId; // var pour le suivi de la position (mobile)
+
+function geo_ok(position) {
+	var latitude = position.coords.latitude;
+	var longitude = position.coords.longitude;
+	var altitude = position.coords.altitude; // seulement sur firefox
+	document.getElementById('content').innerHTML = 'latitude : ' + latitude + '<br />' + 'longitude : ' + longitude + '<br />';
+}
+
+function geo_error(error) {
+	alert(error.message+" / "+error.code);	 
+}
+
+function geo() {
+	if(navigator.geolocation){
+			watchId = navigator.geolocation.watchPosition(geo_ok, geo_error, {enableHighAccuracy:true, maximumAge:5000, timeout:5000});
+	} else {
+		alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
+	}
+}
+
+function annulersuivigeo(){
+	    clearWatch(watchId);
+	}
+</script>
+</head>
+
+<body>
+
+
+<div id="content"></div>
+<input type="button" onclick="geo();" value="start suivi geo">
+<input type="button" onclick="annulergeo();" value="stop suivi geo">
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=set_to_true_or_false"></script>
+
+<script>
+
+var latitude:43.588249;
+var longitude:1.3681413999999998;
+var coordonnees;
+var carte;
+
+function affichercarte() {
+
+	carte = new google.maps.Map(document.getElementById("content"));
+	coordonnees = new google.maps.LatLng(latitude, longitude);
+ 
+    // Ajout d'un marqueur à la position trouvée
+    var marker = new google.maps.Marker({
+      position: coordonnees,
+      map: carte,
+      title:"Vous êtes ici"
+    });
+    
+    // Permet de centrer la carte sur la position latlng
+    map.panTo(coordonnees);
+}
+</script>
+</head>
+
+<body>
+
+
+<div id="content"></div>
+<input type="button" onclick="affichercarte();" value="carte">
+
+</body>
+</html>
