@@ -1,22 +1,22 @@
 <?php
-//recupère un incident
-function getIncident()
+//recupère un incident MODIF ALEXANDRE
+/*function getIncident($lattitude, $longitude, $distance)
 {
     $bdd = getBdd();
-    $incidents = $bdd->query('SELECT *'
-        . ' FROM Incident'
-        . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)');
-    return $incidents->fetch(); // Accès à la première ligne de résultat
-}
 
-//recupère tous les types d'incidents
-function getTypesIncident()
-{
-    $bdd = getBdd();
-    $incidents = $bdd->query('SELECT *'
-        . ' FROM Type_incident');
+    $formule="(6366*acos(cos(radians($lattitude))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians($longitude))+sin(radians($lattitude))*sin(radians(`lattitudeIncident`))))";
+
+    $incidents = $bdd->query('SELECT idIncident, '.$formule.' AS dist'
+        . ' FROM Incident'
+        . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)'
+        . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC');
+
+    // $distance est la distance en KM max choisie
+
+    //$sql="SELECT ville,$formule AS dist FROM ville WHERE $formule<='$_GET[distance]' ORDER by dist ASC";
+
     return $incidents->fetch(); // Accès à la première ligne de résultat
-}
+}*/
 
 // ajoute un incident
 function setIncident($desc, $idType)
@@ -61,7 +61,7 @@ function setUser($login, $mdp)
 function getBdd() {
     try {
  $bdd = new PDO('mysql:host=localhost;dbname=saferoad;charset=utf8', 'root',
-            '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            'daxter04@', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 catch(PDOException $e) {
     $msg = '<p>ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage()."</p>";

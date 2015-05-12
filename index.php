@@ -108,22 +108,9 @@ setInterval("recupereIncidents()",1000)
 			<form name = "incident" >
 				<select name="typeIncident" id="typeIncident">
 					<optgroup label="Type d'incident">
-
-						<?php
-						/* modif Geoffrey */
-						$listeIncidents = array();
-						$listeIncidents = getTypesIncident();
-
-						foreach ($listeIncidents as $ligne) {
-							echo '<option value="' . $ligne['idType'] . '">' . $ligne['nomType'] . '</option>';
-							# code...
-						}
-
-/*						<option value="acc">Accident</option>
+						<option value="acc">Accident</option>
 						<option value="anm">Animal mort</option>
-						<option value="rad">Radar</option>*/
-						?>
-
+						<option value="rad">Radar</option>
 					</optgroup>
 				</select>
 
