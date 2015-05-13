@@ -20,5 +20,6 @@ if (isset($_GET['lng']))
  $lng = $_GET['lng']; 
 }
 
+echo $lat;
 setIncident($description, $idType, $lat, $lng );
 

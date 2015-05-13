@@ -24,7 +24,7 @@ require 'modele.php';
 				'<p> ' + descriptionIncident + ' </p>' +
 				'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
 				'<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
-			'</div>');
+				'</div>');
 
 			$('#main').collapsibleset();
 		}
@@ -82,16 +82,16 @@ require 'modele.php';
 					//Chaque incident
 					var incident = data.split("/");	
 					for (var i = incident.length - 1; i >= 0; i--) {
+						//chaque argument d'incident	
 						var param = incident[i].split(",");
 						var description = param[0];
 						var lat = param[1];
 						var lng = param[2];
 						var idType = param[3];
 						if (lat != null)
-						ajoutMarqueur(description, lat, lng, idType);
+							ajoutMarqueur(description, lat, lng, idType);
 					};
-					//chaque argument d'incident		
-					/*ajoutMarqueur(data);*/
+
 				},
 				error: function(jqXHR, textStatus, errorThrown){
 					alert(errorThrown);
@@ -147,14 +147,26 @@ require 'modele.php';
 		//Ajoute UN marqueur et affiche la description de l'incident sur le click
 		function ajoutMarqueur(desc, lat, lng, idType)
 		{
+			var urlImage; 
 			if (lat != null)
-			pos = new google.maps.LatLng(lat, lng)
+				pos = new google.maps.LatLng(lat, lng);
 
-				var optionsMarqueur = {
-					position: pos,
-					map: map,
-				}
-			
+
+			if(idType == 1)
+				urlImage = "./images/iconeTravaux.png";
+			if(idType == 2)
+				urlImage = "./images/iconeRadar.png";
+			var imageMarqueur = {
+				url: urlImage,
+				size: new google.maps.Size(25, 25),
+				anchor: new google.maps.Point(25, 25)
+			};
+			var optionsMarqueur = {
+				position: pos,
+				map: map,
+				icon: imageMarqueur,
+			};
+			console.debug(imageMarqueur);
 			var marqueur = new google.maps.Marker(optionsMarqueur);
 			var contenuInfoBulle = desc;
 			var infoBulle = new google.maps.InfoWindow({
@@ -182,83 +194,83 @@ require 'modele.php';
 						<optgroup label="Type d'incident">
 							<?php
 							
-						/* modif Geoffrey */
-						$listeIncidents = array();
-						$listeIncidents = getTypesIncident();
-						foreach ($listeIncidents as $ligne) {
-							echo '<option value="' . $ligne['idType'] . '">' . $ligne['nomType'] . '</option>';
+							/* modif Geoffrey */
+							$listeIncidents = array();
+							$listeIncidents = getTypesIncident();
+							foreach ($listeIncidents as $ligne) {
+								echo '<option value="' . $ligne['idType'] . '">' . $ligne['nomType'] . '</option>';
 							# code...
-						}
-						
+							}
+
 
 /*						<option value="acc">Accident</option>
 						<option value="anm">Animal mort</option>
 						<option value="rad">Radar</option>*/
 						?>
-						</optgroup>
-					</select>
+					</optgroup>
+				</select>
 
-					<label for="info">description</label>
-					<textarea name="desc" id="description" style="height:40%"></textarea>
-				</form>
-				<!-- MODIF ANTOINE -->
-				<a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
-				<!-- MODIF ANTOINE -->
-				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
-			</div>
+				<label for="info">description</label>
+				<textarea name="desc" id="description" style="height:40%"></textarea>
+			</form>
+			<!-- MODIF ANTOINE -->
+			<a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
+			<!-- MODIF ANTOINE -->
+			<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
+		</div>
 
-			<div data-role="panel" id="param"> 
-				<h2>Modifier les paramètres utilisateurs</h2>
-				<p>blablabla..</p>
+		<div data-role="panel" id="param"> 
+			<h2>Modifier les paramètres utilisateurs</h2>
+			<p>blablabla..</p>
 
-				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
-			</div>
+			<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
+		</div>
 
-			<div data-role="popup" id="myPopup">
-				<p>Alerte ajoutée</p>
-			</div>
+		<div data-role="popup" id="myPopup">
+			<p>Alerte ajoutée</p>
+		</div>
 
-			<div id="main" role="main" data-role="content" class="ui-content">
-				<p>SafeRoad<p>
-					<p>Parce que nous qu'on aime bien les routes sures<p>
+		<div id="main" role="main" data-role="content" class="ui-content">
+			<p>SafeRoad<p>
+				<p>Parce que nous qu'on aime bien les routes sures<p>
 
-								<div class = "notification" data-role = "collapsible" id = "notif_0" hidden>
-									<h2> vide </h2>
-									<p> vide </p>
-									<button class="ui-btn ui-btn-inline ui-mini">Editer</button>
-									<button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
-								</div>
-
-						<div id="map" style="height:500px; width:100%;" ></div>
-						<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
+					<div class = "notification" data-role = "collapsible" id = "notif_0" hidden>
+						<h2> vide </h2>
+						<p> vide </p>
+						<button class="ui-btn ui-btn-inline ui-mini">Editer</button>
+						<button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
 					</div>
 
-					<!-- /footer -->
-					<div data-role="footer" data-position="fixed">
-						<div data-role="navbar">
-							<ul>
-								<li><a onclick ="recupereIncidents();"href="#param" data-role="button" data-icon="user">Paramètres</a></li>
-								<li><a href="#signaler" data-role="button" data-icon="location">Signaler incident</a></li>
-							</ul>
-						</div>
-					</div><!-- /footer -->
+					<div id="map" style="height:500px; width:100%;" ></div>
+					<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
 				</div>
 
-				<!-- page non connecté -->
-				<div data-role="page" id="pageNonConnecte">
-					<div data-role="content" class="ui-content">
-						<p>SafeRoad<p>
-							<form name="connexion">
-								<label for="info">Login:</label>
-								<input name="login" id="login"></input>
-
-								<label for="info">Mot de passe:</label>
-								<input type="password" name="mdp" id="password"></input>
-
-								<button onclick="verifUser(document.forms['connexion'].mdp.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Connexion</button>
-							</form>
-							<a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
-						</div>
+				<!-- /footer -->
+				<div data-role="footer" data-position="fixed">
+					<div data-role="navbar">
+						<ul>
+							<li><a onclick ="recupereIncidents();"href="#param" data-role="button" data-icon="user">Paramètres</a></li>
+							<li><a href="#signaler" data-role="button" data-icon="location">Signaler incident</a></li>
+						</ul>
 					</div>
-				</body>
-				</html>
+				</div><!-- /footer -->
+			</div>
+
+			<!-- page non connecté -->
+			<div data-role="page" id="pageNonConnecte">
+				<div data-role="content" class="ui-content">
+					<p>SafeRoad<p>
+						<form name="connexion">
+							<label for="info">Login:</label>
+							<input name="login" id="login"></input>
+
+							<label for="info">Mot de passe:</label>
+							<input type="password" name="mdp" id="password"></input>
+
+							<button onclick="verifUser(document.forms['connexion'].mdp.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Connexion</button>
+						</form>
+						<a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
+					</div>
+				</div>
+			</body>
+			</html>
