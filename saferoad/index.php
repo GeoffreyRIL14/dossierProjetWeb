@@ -24,7 +24,7 @@ require 'modele.php';
 				'<p> ' + descriptionIncident + ' </p>' +
 				'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
 				'<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
-				'</div>');
+			'</div>');
 
 			$('#main').collapsibleset();
 		}
@@ -44,7 +44,6 @@ require 'modele.php';
 				type: 'GET',
 				url: './ajax/ajoutIncident.php',
 				data: '&d=' + description + '&t=' + 1 +'&lat=' + lat + '&lng=' + lng,  
-				//url: './ajax/ajoutIncident.php?d=' + description + '&t=' + 1 +'&lat=' + lat + '&lng=' + lng,  
 				success: function(data, textStatus, jqXHR){
 					console.log(data);
 				},
@@ -55,9 +54,9 @@ require 'modele.php';
 		}
 
 		//Requête Ajax permettant de vérifier si l'utilisateur existe
-		function verifUser(mdp)
+		function verifUser(login, mdp)
 		{
-			var login = document.forms['connexion'].login.value;
+			/*var login = document.forms['connexion'].login.value;*/
 			$.ajax({
 				type: 'POST',
 				url: './ajax/verifUser.php',
@@ -72,6 +71,27 @@ require 'modele.php';
 			});
 		}
 
+		/*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
+		function createUser(login, mdp)
+		{
+			$.ajax
+			({
+				type: 'POST',
+				url:'./ajax/createUser.php',
+				data: '&l=' + login,
+				success: function(data, textStatus, jqXHR)
+				{
+					if(data == "")
+					{
+						alert(data);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown)
+				{
+					alert(errorThrown);
+				}
+			});
+		}
 		//Requête ajax recupérant tous les incidents
 		function recupereIncidents()
 		{
@@ -83,21 +103,16 @@ require 'modele.php';
 					//Chaque incident
 					var incident = data.split("/");	
 					for (var i = incident.length - 1; i >= 0; i--) {
-						//chaque argument d'incident	
 						var param = incident[i].split(",");
 						var description = param[0];
 						var lat = param[1];
 						var lng = param[2];
 						var idType = param[3];
-						var nomType = param[4];
-						var idIncident = param[5];
-						if (lat != null) {
-							ajoutMarqueur(description, lat, lng, idType);
-							insereNotification(idIncident, nomType, description);
-						}
-
+						if (lat != null)
+						ajoutMarqueur(description, lat, lng, idType);
 					};
-
+					//chaque argument d'incident		
+					/*ajoutMarqueur(data);*/
 				},
 				error: function(jqXHR, textStatus, errorThrown){
 					alert(errorThrown);
@@ -113,7 +128,7 @@ require 'modele.php';
 				navigator.geolocation.getCurrentPosition(
 					geo_ok,
 					geo_error, 
-					{ enableHighAccuracy:true, maximumAge:5000, timeout:50000}
+					{ enableHighAccuracy:true, maximumAge:5000, timeout:5000}
 					);
 			} else {
 				alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
@@ -153,49 +168,13 @@ require 'modele.php';
 		//Ajoute UN marqueur et affiche la description de l'incident sur le click
 		function ajoutMarqueur(desc, lat, lng, idType)
 		{
-			var urlImage; 
 			if (lat != null)
-			{	
-				pos = new google.maps.LatLng(lat, lng);
-			}
+			pos = new google.maps.LatLng(lat, lng)
 
-			if(idType == 1)
-			{
-				urlImage = "./images/iconeTravaux.png";
-			}
-			if(idType == 2)
-			{
-				urlImage = "./images/iconeRadar.png";
-			}
-
-			if(idType == 3)
-			{
-				urlImage = "./images/iconePolice.png";
-			}
-			if(idType == 4)
-			{
-				urlImage = "./images/iconeAccident.png";
-			}
-			if (urlImage != null)
-			{
-			var imageMarqueur = {
-				url: urlImage,
-				size: new google.maps.Size(25, 25),
-				anchor: new google.maps.Point(25, 25)
-			};
-			var optionsMarqueur = {
-				position: pos,
-				map: map,
-				icon: imageMarqueur,
-			};
-			}
-			else
-			{
 				var optionsMarqueur = {
-				position: pos,
-				map: map,
-			};
-			}
+					position: pos,
+					map: map,
+				}
 			
 			var marqueur = new google.maps.Marker(optionsMarqueur);
 			var contenuInfoBulle = desc;
@@ -206,90 +185,86 @@ require 'modele.php';
 				infoBulle.open(map, marqueur);
 			});
 		}
-		
+		recuperePos(0);
 		
 		</script>
 
 	</head>
 	<body>
-
-
 		<!-- page connecté -->
 		<div data-role="page" id="pageConnecte">
-
 			<div data-role="panel" id="signaler" data-position="right"> 
 				<h2>Signaler un incident</h2>
 				<form name = "incident" >
 					<select name="typeIncident" id="typeIncident">
 						<optgroup label="Type d'incident">
-							<?php
+
+						<?php
 							
 							/* modif Geoffrey */
 							$listeIncidents = array();
 							$listeIncidents = getTypesIncident();
-							foreach ($listeIncidents as $ligne) {
+							foreach ($listeIncidents as $ligne)
+							{
 								echo '<option value="' . $ligne['idType'] . '">' . $ligne['nomType'] . '</option>';
-							# code...
+								# code...
 							}
-
-
-/*						<option value="acc">Accident</option>
-						<option value="anm">Animal mort</option>
-						<option value="rad">Radar</option>*/
+						
 						?>
-					</optgroup>
-				</select>
 
-				<label for="info">description</label>
-				<textarea name="desc" id="description" style="height:40%"></textarea>
-			</form>
-			<!-- MODIF ANTOINE -->
-			<a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
-			<!-- MODIF ANTOINE -->
-			<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
-		</div>
+						</optgroup>
+					</select>
 
-		<div data-role="panel" id="param"> 
-			<h2>Modifier les paramètres utilisateurs</h2>
-			<p>blablabla..</p>
+					<label for="info">description</label>
+					<textarea name="desc" id="description" style="height:40%"></textarea>
+				</form>
+				<!-- MODIF ANTOINE -->
+				<a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
+				<!-- MODIF ANTOINE -->
+				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
+			</div>
 
-			<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
-		</div>
+			<div data-role="panel" id="param"> 
+				<h2>Modifier les paramètres utilisateurs</h2>
+				<p>blablabla..</p>
 
-		<div data-role="popup" id="myPopup">
-			<p>Alerte ajoutée</p>
-		</div>
+				<a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
+			</div>
 
-		<div id="main" role="main" data-role="content" class="ui-content">
-			<p>SafeRoad<p>
-				<p>Parce que nous qu'on aime bien les routes sures<p>
+			<div data-role="popup" id="myPopup">
+				<p>Alerte ajoutée</p>
+			</div>
 
-					<div class = "notification" data-role = "collapsible" id = "notif_0" hidden>
-						<h2> vide </h2>
-						<p> vide </p>
-						<button class="ui-btn ui-btn-inline ui-mini">Editer</button>
-						<button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
-					</div>
+			<div id="main" role="main" data-role="content" class="ui-content">
+				<p>SafeRoad</p>
+				<p>Parce que nous qu'on aime bien les routes sures</p>
 
-					<div id="map" style="height:500px; width:100%;" ></div>
-					<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
-				
+				<div class = "notification" data-role = "collapsible" id = "notif_0" hidden>
+					<h2> vide </h2>
+					<p> vide </p>
+					<button class="ui-btn ui-btn-inline ui-mini">Editer</button>
+					<button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
+				</div>
+
+				<div id="map" style="height:500px; width:100%;" ></div>
+				<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
+			</div>
 
 				<!-- /footer -->
-				<div data-role="footer" data-position="fixed">
-					<div data-role="navbar">
-						<ul>
-							<li><a onclick ="recupereIncidents();"href="#param" data-role="button" data-icon="user">Paramètres</a></li>
-							<li><a href="#signaler" data-role="button" data-icon="location">Signaler incident</a></li>
-						</ul>
-					</div>
-				</div><!-- /footer -->
-			</div>
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a onclick ="recupereIncidents();"href="#param" data-role="button" data-icon="user">Paramètres</a></li>
+						<li><a href="#signaler" data-role="button" data-icon="location">Signaler incident</a></li>
+					</ul>
+				</div>
+			</div><!-- /footer -->
+			
 
 			<!-- page non connecté -->
 			<div data-role="page" id="pageNonConnecte">
 				<div data-role="content" class="ui-content">
-					<p>SafeRoad<p>
+					<p>SafeRoad</p>
 						<form name="connexion">
 							<label for="info">Login:</label>
 							<input name="login" id="login"></input>
@@ -299,9 +274,28 @@ require 'modele.php';
 
 							<button onclick="verifUser(document.forms['connexion'].mdp.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Connexion</button>
 						</form>
-						<a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
-					</div>
+					<a href="#pageInscription" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
 				</div>
-				<script type="text/javascript">recuperePos(0);</script>
-			</body>
-			</html>
+			</div>
+
+			<!-- page inscription -->
+			<div data-role="page" id="pageInscription">
+				<div data-role="content" class="ui-content">
+					<p>Inscription nouvel utilisateur</p>
+					<form name = "inscription">
+
+						<!-- partie pseudo -->
+						<label for="info">Pseudo</label>
+						<input name="newLogin" id="newPseudo"></input>
+
+						<!-- partie mot de passe -->
+						<label for="info">Mot de passe</label>
+						<input type="password" name="newMdp" id="newPassword"></input>
+
+						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

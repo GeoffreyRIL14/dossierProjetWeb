@@ -3,7 +3,7 @@ function getTypesIncident()
 {
     $bdd = getBdd();
     $incidents = $bdd->query('SELECT *'
-        . ' FROM type_incident');
+        . ' FROM Type_incident');
     return $incidents->fetchAll();
 }
 
@@ -13,9 +13,9 @@ function getIncident($lattitude, $longitude, $distance)
     $bdd = getBdd();
 
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
-    $requete = 'SELECT distinct incident.descriptionIncident, incident.lattitudeIncident, incident.longitudeIncident, incident.idType, type_incident.nomType,  incident.idIncident, '.$formule.' AS dist'
-        . ' FROM incident'
-        . ' INNER JOIN type_incident ON(type_incident.idType = incident.idType)'
+    $requete = 'SELECT distinct Incident.descriptionIncident, Incident.lattitudeIncident, Incident.longitudeIncident, Incident.idType,  '.$formule.' AS dist'
+        . ' FROM Incident'
+        . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
 
     /*$incidents = $bdd->query($requete);*/
@@ -31,8 +31,8 @@ function setIncident($desc, $idType,$lat, $lng)
 {
     $bdd = getBdd();
     $incident = $bdd->prepare('INSERT INTO incident'
-            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident, dateHeureIncident)'
-            . ' VALUES (?,?,?,?,?,?,NOW())'); 
+            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident)'
+            . ' VALUES (?,?,?,?,?,?)'); 
     $param = array($desc, 1, 1, $idType, $lat, $lng);
     $incident->execute($param);
 }
@@ -42,7 +42,7 @@ function getVerifUser($login, $mdp)
 {
     $bdd = getBdd();
     $user = $bdd->prepare('SELECT *'
-        . ' FROM user'
+        . ' FROM USER'
         . ' WHERE pseudoUser=?'
         . ' AND motDePasse=?');
     $param = array($login, md5($mdp));
@@ -51,6 +51,24 @@ function getVerifUser($login, $mdp)
     return true; // Accès à la première ligne de résultat
     else 
     return false;
+}
+
+/*Vérifie si le login existe (à integrer)*/
+function getLoginUser($login)
+{
+    $bdd = getBdd();
+    $user = $bdd->prepare('SELECT * FROM USER WHERE pseudoUser = ?');
+    $param = array($login);
+    $user->execute($param);
+
+    if($user->rowcount() == 0)
+    {
+        return true;/*pseudo disponible*/
+    }
+    else
+    {
+        return false;/*pseudo indisponible*/
+    }
 }
 
 // ajoute un incident
@@ -69,7 +87,7 @@ function setUser($login, $mdp)
 function getBdd() {
     try {
  $bdd = new PDO('mysql:host=localhost;dbname=saferoad;charset=utf8', 'root',
-            '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            'daxter04@', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 catch(PDOException $e) {
     $msg = '<p>ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage()."</p>";
