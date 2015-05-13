@@ -31,8 +31,8 @@ function setIncident($desc, $idType,$lat, $lng)
 {
     $bdd = getBdd();
     $incident = $bdd->prepare('INSERT INTO incident'
-            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident)'
-            . ' VALUES (?,?,?,?,?,?)'); 
+            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident, dateHeureIncident)'
+            . ' VALUES (?,?,?,?,?,?,NOW())'); 
     $param = array($desc, 1, 1, $idType, $lat, $lng);
     $incident->execute($param);
 }

@@ -154,13 +154,20 @@ require 'modele.php';
 		{
 			var urlImage; 
 			if (lat != null)
+			{	
 				pos = new google.maps.LatLng(lat, lng);
-
+			}
 
 			if(idType == 1)
+			{
 				urlImage = "./images/iconeTravaux.png";
+			}
 			if(idType == 2)
+			{
 				urlImage = "./images/iconeRadar.png";
+			}
+			if (urlImage != null)
+			{
 			var imageMarqueur = {
 				url: urlImage,
 				size: new google.maps.Size(25, 25),
@@ -171,7 +178,15 @@ require 'modele.php';
 				map: map,
 				icon: imageMarqueur,
 			};
-			console.debug(imageMarqueur);
+			}
+			else
+			{
+				var optionsMarqueur = {
+				position: pos,
+				map: map,
+			};
+			}
+			
 			var marqueur = new google.maps.Marker(optionsMarqueur);
 			var contenuInfoBulle = desc;
 			var infoBulle = new google.maps.InfoWindow({
