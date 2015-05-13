@@ -87,8 +87,13 @@ require 'modele.php';
 						var lat = param[1];
 						var lng = param[2];
 						var idType = param[3];
-						if (lat != null)
-						ajoutMarqueur(description, lat, lng, idType);
+						var nomType = param[4];
+						var idIncident = param[5];
+						if (lat != null) {
+							ajoutMarqueur(description, lat, lng, idType);
+							insereNotification(idIncident, nomType, description);
+						}
+						
 					};
 					//chaque argument d'incident		
 					/*ajoutMarqueur(data);*/

@@ -13,7 +13,7 @@ function getIncident($lattitude, $longitude, $distance)
     $bdd = getBdd();
 
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
-    $requete = 'SELECT distinct Incident.descriptionIncident, Incident.lattitudeIncident, Incident.longitudeIncident, Incident.idType,  '.$formule.' AS dist'
+    $requete = 'SELECT distinct Incident.descriptionIncident, Incident.lattitudeIncident, Incident.longitudeIncident, Incident.idType, Type_incident.nomType,  Incident.idIncident, '.$formule.' AS dist'
         . ' FROM Incident'
         . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
