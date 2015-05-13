@@ -3,7 +3,7 @@ function getTypesIncident()
 {
     $bdd = getBdd();
     $incidents = $bdd->query('SELECT *'
-        . ' FROM Type_incident');
+        . ' FROM type_incident');
     return $incidents->fetchAll();
 }
 
@@ -13,9 +13,9 @@ function getIncident($lattitude, $longitude, $distance)
     $bdd = getBdd();
 
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
-    $requete = 'SELECT distinct Incident.descriptionIncident, Incident.lattitudeIncident, Incident.longitudeIncident, Incident.idType, Type_incident.nomType,  Incident.idIncident, '.$formule.' AS dist'
-        . ' FROM Incident'
-        . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)'
+    $requete = 'SELECT distinct incident.descriptionIncident, incident.lattitudeIncident, incident.longitudeIncident, incident.idType, type_incident.nomType,  incident.idIncident, '.$formule.' AS dist'
+        . ' FROM incident'
+        . ' INNER JOIN type_incident ON(type_incident.idType = incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
 
     /*$incidents = $bdd->query($requete);*/
@@ -42,7 +42,7 @@ function getVerifUser($login, $mdp)
 {
     $bdd = getBdd();
     $user = $bdd->prepare('SELECT *'
-        . ' FROM USER'
+        . ' FROM user'
         . ' WHERE pseudoUser=?'
         . ' AND motDePasse=?');
     $param = array($login, md5($mdp));

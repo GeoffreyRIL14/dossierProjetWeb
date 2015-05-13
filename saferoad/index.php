@@ -44,6 +44,7 @@ require 'modele.php';
 				type: 'GET',
 				url: './ajax/ajoutIncident.php',
 				data: '&d=' + description + '&t=' + 1 +'&lat=' + lat + '&lng=' + lng,  
+				//url: './ajax/ajoutIncident.php?d=' + description + '&t=' + 1 +'&lat=' + lat + '&lng=' + lng,  
 				success: function(data, textStatus, jqXHR){
 					console.log(data);
 				},
@@ -112,7 +113,7 @@ require 'modele.php';
 				navigator.geolocation.getCurrentPosition(
 					geo_ok,
 					geo_error, 
-					{ enableHighAccuracy:true, maximumAge:5000, timeout:5000}
+					{ enableHighAccuracy:true, maximumAge:5000, timeout:50000}
 					);
 			} else {
 				alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
@@ -166,6 +167,15 @@ require 'modele.php';
 			{
 				urlImage = "./images/iconeRadar.png";
 			}
+
+			if(idType == 3)
+			{
+				urlImage = "./images/iconePolice.png";
+			}
+			if(idType == 4)
+			{
+				urlImage = "./images/iconeAccident.png";
+			}
 			if (urlImage != null)
 			{
 			var imageMarqueur = {
@@ -196,7 +206,7 @@ require 'modele.php';
 				infoBulle.open(map, marqueur);
 			});
 		}
-		recuperePos(0);
+		
 		
 		</script>
 
@@ -263,7 +273,7 @@ require 'modele.php';
 
 					<div id="map" style="height:500px; width:100%;" ></div>
 					<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
-				</div>
+				
 
 				<!-- /footer -->
 				<div data-role="footer" data-position="fixed">
@@ -292,5 +302,6 @@ require 'modele.php';
 						<a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
 					</div>
 				</div>
+				<script type="text/javascript">recuperePos(0);</script>
 			</body>
 			</html>
