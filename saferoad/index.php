@@ -10,6 +10,14 @@ require 'modele.php';
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<style type="text/css">
+	
+	#map
+	{
+		width:100%;
+		height:300px;
+	}
+	</style>
 	<script type="text/javascript">
 	/*	setInterval("recupereIncidents()",1000)*/
 
@@ -271,7 +279,7 @@ require 'modele.php';
 						<button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
 					</div>
 
-					<div id="map" style="height:500px; width:100%;" ></div>
+					<div id="map"></div>
 					<a href="#pageNonConnecte" class="ui-btn ui-icon-delete ui-btn-icon-left">Deconnexion</a>
 				
 
