@@ -88,18 +88,13 @@ require 'modele.php';
 						var lat = param[1];
 						var lng = param[2];
 						var idType = param[3];
-<<<<<<< HEAD
-						if (lat != null)
-							ajoutMarqueur(description, lat, lng, idType);
-=======
 						var nomType = param[4];
 						var idIncident = param[5];
 						if (lat != null) {
 							ajoutMarqueur(description, lat, lng, idType);
 							insereNotification(idIncident, nomType, description);
 						}
-						
->>>>>>> 26d80ad597050b41bf2734bc1972b67fb0b3ba1e
+
 					};
 
 				},
