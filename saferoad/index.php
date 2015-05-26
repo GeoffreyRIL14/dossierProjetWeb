@@ -10,193 +10,185 @@ require 'modele.php';
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<style type="text/css">
-	
-	#map
-	{
-		width:100%;
-		height:300px;
-	}
-	</style>
-	<script type="text/javascript">
-	/*	setInterval("recupereIncidents()",1000)*/
 
-	function insereNotification(idNotification, typeIncident, descriptionIncident)
-	{
-		var idJQNotif = '#notif_' + idNotification;
+    <script type="text/javascript">
+        /*	setInterval("recupereIncidents()",1000)*/
 
-		if ($(idJQNotif).length <= 0) {
+        function insereNotification(idNotification, typeIncident, descriptionIncident)
+        {
+            var idJQNotif = '#notif_' + idNotification;
 
-			$('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
-				'<h2> ' + typeIncident + ' </h2>' +
-				'<p> ' + descriptionIncident + ' </p>' +
-				'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
-				'<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
-			'</div>');
+            if ($(idJQNotif).length <= 0) {
 
-			$('#main').collapsibleset();
-		}
-	}
+                $('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
+                '<h2> ' + typeIncident + ' </h2>' +
+                '<p> ' + descriptionIncident + ' </p>' +
+                '<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
+                '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
+                '</div>');
 
-	/////////////////////////////
+                $('#main').collapsibleset();
+            }
+        }
 
-	var map ;
-	var pos ;
-	var bAjoutIncident = 0;
-		//requête ajax permettant d'ajouter un nouvel incident
-		function ajoutIncident(lat, lng)
-		{
-			var description = document.forms['incident'].desc.value;
-			var idType = document.forms['incident'].typeIncident.value;
-			$.ajax({
-				type: 'GET',
-				url: './ajax/ajoutIncident.php',
-				data: '&d=' + description + '&t=' + 1 +'&lat=' + lat + '&lng=' + lng,  
-				success: function(data, textStatus, jqXHR){
-					console.log(data);
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-					alert(errorThrown);
-				}
-			});
-		}
+        /////////////////////////////
 
-		//Requête Ajax permettant de vérifier si l'utilisateur existe
-		function verifUser(login, mdp)
-		{
-			/*var login = document.forms['connexion'].login.value;*/
-			$.ajax({
-				type: 'POST',
-				url: './ajax/verifUser.php',
-				data: '&l=' + login + '&m=' + mdp,  
-				success: function(data, textStatus, jqXHR){
-					if (data != "") 
-						alert(data);
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-					alert(errorThrown);
-				}
-			});
-		}
+        var map ;
+        var pos ;
+        var bAjoutIncident = 0;
+        //requête ajax permettant d'ajouter un nouvel incident
+        function ajoutIncident(lat, lng)
+        {
+            var description = document.forms['incident'].desc.value;
+            var idType = document.forms['incident'].typeIncident.value;
+            $.ajax({
+                type: 'GET',
+                url: './ajax/ajoutIncident.php',
+                data: '&d=' + description + '&t=' + 1 +'&lat=' + lat + '&lng=' + lng,
+                success: function(data, textStatus, jqXHR){
+                    console.log(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert(errorThrown);
+                }
+            });
+        }
 
-		/*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
-		function createUser(login, mdp)
-		{
-			$.ajax
-			({
-				type: 'POST',
-				url:'./ajax/createUser.php',
-				data: '&l=' + login,
-				success: function(data, textStatus, jqXHR)
-				{
-					if(data == "")
-					{
-						alert(data);
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown)
-				{
-					alert(errorThrown);
-				}
-			});
-		}
-		//Requête ajax recupérant tous les incidents
-		function recupereIncidents()
-		{
-			$.ajax({
-				type: 'GET',
-				url: './ajax/recupereIncidents.php',
-				data: {},  
-				success: function(data, textStatus, jqXHR){
-					//Chaque incident
-					var incident = data.split("/");	
-					for (var i = incident.length - 1; i >= 0; i--) {
-						var param = incident[i].split(",");
-						var description = param[0];
-						var lat = param[1];
-						var lng = param[2];
-						var idType = param[3];
-						if (lat != null)
-						ajoutMarqueur(description, lat, lng, idType);
-					};
-					//chaque argument d'incident		
-					/*ajoutMarqueur(data);*/
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-					alert(errorThrown);
-				}
-			});
-		}
+        //Requête Ajax permettant de vérifier si l'utilisateur existe
+        function verifUser(login, mdp)
+        {
+            /*var login = document.forms['connexion'].login.value;*/
+            $.ajax({
+                type: 'POST',
+                url: './ajax/verifUser.php',
+                data: '&l=' + login + '&m=' + mdp,
+                success: function(data, textStatus, jqXHR){
+                    if (data != "")
+                        alert(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert(errorThrown);
+                }
+            });
+        }
 
-		//fonction JS recupérant la lattitute et longitude
-		function recuperePos(bAjoutInc)
-		{
-			bAjoutIncident = bAjoutInc;
-			if(navigator.geolocation){
-				navigator.geolocation.getCurrentPosition(
-					geo_ok,
-					geo_error, 
-					{ enableHighAccuracy:true, maximumAge:5000, timeout:5000}
-					);
-			} else {
-				alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
-			}
-		}
+        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
+        function createUser(login, mdp)
+        {
+            $.ajax
+            ({
+                type: 'POST',
+                url:'./ajax/createUser.php',
+                data: '&l=' + login,
+                success: function(data, textStatus, jqXHR)
+                {
+                    if(data == "")
+                    {
+                        alert(data);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    alert(errorThrown);
+                }
+            });
+        }
+        //Requête ajax recupérant tous les incidents
+        function recupereIncidents()
+        {
+            $.ajax({
+                type: 'GET',
+                url: './ajax/recupereIncidents.php',
+                data: {},
+                success: function(data, textStatus, jqXHR){
+                    //Chaque incident
+                    var incident = data.split("/");
+                    for (var i = incident.length - 1; i >= 0; i--) {
+                        var param = incident[i].split(",");
+                        var description = param[0];
+                        var lat = param[1];
+                        var lng = param[2];
+                        var idType = param[3];
+                        if (lat != null)
+                            ajoutMarqueur(description, lat, lng, idType);
+                    };
+                    //chaque argument d'incident
+                    /*ajoutMarqueur(data);*/
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert(errorThrown);
+                }
+            });
+        }
 
-		function geo_ok(position) {
-			var latitude = position.coords.latitude;
-			var longitude = position.coords.longitude;
-			if (!bAjoutIncident)
-			{
-				Initialisation(latitude,longitude);
-			}
-			else
-			{
-				ajoutIncident(latitude, longitude);
-			}
+        //fonction JS recupérant la lattitute et longitude
+        function recuperePos(bAjoutInc)
+        {
+            bAjoutIncident = bAjoutInc;
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(
+                    geo_ok,
+                    geo_error,
+                    { enableHighAccuracy:true, maximumAge:5000, timeout:5000}
+                );
+            } else {
+                alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
+            }
+        }
 
-		}
+        function geo_ok(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            if (!bAjoutIncident)
+            {
+                Initialisation(latitude,longitude);
+            }
+            else
+            {
+                ajoutIncident(latitude, longitude);
+            }
 
-		function geo_error(error) {
-			alert(error.message+" / "+error.code);	 
-		}
+        }
 
-		//Initialisation de la carte
-		function Initialisation(latitude,longitude) {
-			pos = new google.maps.LatLng(latitude, longitude);
-			        var myOptions = {
-				            zoom: 10,
-				            center: pos,
-				            mapTypeId: google.maps.MapTypeId.ROADMAP
-			        };
-			map = new google.maps.Map(document.getElementById("map"), myOptions);
-			ajoutMarqueur();  
-		}
+        function geo_error(error) {
+            alert(error.message+" / "+error.code);
+        }
 
-		//Ajoute UN marqueur et affiche la description de l'incident sur le click
-		function ajoutMarqueur(desc, lat, lng, idType)
-		{
-			if (lat != null)
-			pos = new google.maps.LatLng(lat, lng)
+        //Initialisation de la carte
+        function Initialisation(latitude,longitude) {
+            pos = new google.maps.LatLng(latitude, longitude);
+            var myOptions = {
+                zoom: 10,
+                center: pos,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            console.log(map);
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            ajoutMarqueur();
+        }
 
-				var optionsMarqueur = {
-					position: pos,
-					map: map,
-				}
-			
-			var marqueur = new google.maps.Marker(optionsMarqueur);
-			var contenuInfoBulle = desc;
-			var infoBulle = new google.maps.InfoWindow({
-				content: contenuInfoBulle
-			})
-			google.maps.event.addListener(marqueur, 'click', function() {
-				infoBulle.open(map, marqueur);
-			});
-		}
-		recuperePos(0);
-		
-		</script>
+        //Ajoute UN marqueur et affiche la description de l'incident sur le click
+        function ajoutMarqueur(desc, lat, lng, idType)
+        {
+            if (lat != null)
+                pos = new google.maps.LatLng(lat, lng)
 
+            var optionsMarqueur = {
+                position: pos,
+                map: map,
+            }
+
+            var marqueur = new google.maps.Marker(optionsMarqueur);
+            var contenuInfoBulle = desc;
+            var infoBulle = new google.maps.InfoWindow({
+                content: contenuInfoBulle
+            })
+            google.maps.event.addListener(marqueur, 'click', function() {
+                infoBulle.open(map, marqueur);
+            });
+        }
+    recuperePos(0);
+    </script>
 	</head>
 	<body>
 		<!-- page connecté -->
@@ -206,7 +198,6 @@ require 'modele.php';
 				<form name = "incident" >
 					<select name="typeIncident" id="typeIncident">
 						<optgroup label="Type d'incident">
-
 						<?php
 							
 							/* modif Geoffrey */
@@ -278,10 +269,10 @@ require 'modele.php';
 					<p>SafeRoad</p>
 						<form name="connexion">
 							<label for="info">Login:</label>
-							<input name="login" id="login"></input>
+							<input name="login" id="login">
 
 							<label for="info">Mot de passe:</label>
-							<input type="password" name="mdp" id="password"></input>
+							<input type="password" name="mdp" id="password">
 
 							<button onclick="verifUser(document.forms['connexion'].mdp.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Connexion</button>
 						</form>
@@ -297,11 +288,11 @@ require 'modele.php';
 
 						<!-- partie pseudo -->
 						<label for="info">Pseudo</label>
-						<input name="newLogin" id="newPseudo"></input>
+						<input name="newLogin" id="newPseudo">
 
 						<!-- partie mot de passe -->
 						<label for="info">Mot de passe</label>
-						<input type="password" name="newMdp" id="newPassword"></input>
+						<input type="password" name="newMdp" id="newPassword">
 
 						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
 					</form>

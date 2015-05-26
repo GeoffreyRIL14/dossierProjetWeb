@@ -87,7 +87,7 @@ function setUser($login, $mdp)
 function getBdd() {
     try {
  $bdd = new PDO('mysql:host=localhost;dbname=saferoad;charset=utf8', 'root',
-            'daxter04@', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
 catch(PDOException $e) {
     $msg = '<p>ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage()."</p>";
