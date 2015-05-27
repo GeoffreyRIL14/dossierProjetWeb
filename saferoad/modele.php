@@ -51,19 +51,17 @@ function setIncident($desc, $idType,$lat, $lng)
 function getVerifUser($login, $mdp)
 {
     $bdd = getBdd();
-    $user = $bdd->prepare('SELECT *'
+    $user = $bdd->prepare('SELECT idUser'
         . ' FROM USER'
         . ' WHERE pseudoUser=?'
         . ' AND motDePasse=?');
     $param = array($login, $mdp);
     $user->execute($param);
-    if ($user->rowcount() > 0) {
-        return true; // On a trouvé le USER
+    $ligne = $user->fetchall(PDO::FETCH_ASSOC);
+    if ($user->rowcount() == 0) {
+        $ligne = null;
     }
-    else
-    {
-        return false;
-    }
+        return $ligne;
 }
 
 /*Vérifie si le login existe (à integrer)*/
@@ -94,6 +92,33 @@ function setUser($login, $mdp)
     $param = array($login, md5($mdp));
     $incident->execute($param);
 }
+
+
+function setParamUser($idUser, $seuilCredib, $seuilDistance, $notif)
+{
+    $bdd = getBdd();
+    $requete = 'Update USER'
+        . ' SET seuilCredibMin = ?,'
+        . ' seuilDistanceMax = ?,'
+        . ' enableNotif = ?'
+        . ' WHERE idUser = ?';
+    $stmt = $bdd->prepare($requete);
+    $param = array($seuilCredib, $seuilDistance, $notif, $idUser);
+    $stmt->execute($param);
+
+
+
+//    $bdd = getBdd();
+//    $paramUser = $bdd->prepare('Update USER'
+//        . 'SET seuilCredibMin = ?'
+//        . 'SET seuilDistanceMax = ?'
+//        . 'SET enableNotif = ?'
+//        . 'WHERE idUser = ?');
+//    $param = array($seuilCredib, $seuilDistance, $notif, $idUser);
+//    $paramUser->execute($param);
+}
+
+
 
 // Effectue la connexion à la BDD
 // Instancie et renvoie l'objet PDO associé

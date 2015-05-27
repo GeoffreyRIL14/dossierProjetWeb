@@ -38,7 +38,7 @@ session_start();
                     url: './ajax/verifUser.php',
                     data: {l: login, m: mdp},
                     success: function (data) {
-                        if(data == 1)
+                        if(data != 0)
                             window.location.hash = '#pageConnecte' ;
 
                     },
@@ -48,8 +48,36 @@ session_start();
                 });
             }
 
-            $('form').submit(function () {
+            function changeParam()
+            {
+                var notif       = 0;
+                var idUser      = <?php  echo (isset($_SESSION['idUser']))? intval($_SESSION['idUser']) : 0; ?> ;
+                var distance    = $('.paramDistance').val();
+                var credibilite = $('.paramCredibilite').val();
+                if ($('.paramNotif').is(":checked")){
+                    notif = 1 //la case est bien cochée
+                }
+
+
+
+                $.ajax({
+                    type: 'POST',
+                    url:  './ajax/changeParam.php',
+                    data:{id: idUser, dist: distance, cred: credibilite, not: notif},
+                    success: function(data){
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+            $('#formConnect').submit(function () {
                 verifUser();
+                return false;
+            });
+
+            $('#formParam').submit(function () {
+                changeParam();
                 return false;
             });
 
@@ -225,7 +253,7 @@ session_start();
 <!-- page connecté -->
 <div id="main" role="main" data-role="content" class="ui-content">
     <?php if (!isset($_SESSION['id']) || !getVerifUser($_COOKIE['SFlogin'],$_COOKIE['SFmdp'])){?>
-    <script>document.location.hash = 'pageNonConnecte';</script>
+        <script>document.location.hash = 'pageNonConnecte';</script>
     <?php }?>
     <div data-role="page" id="pageConnecte">
 
@@ -256,14 +284,14 @@ session_start();
 
         <div data-role="panel" id="param">
             <h2>Modifier les paramètres utilisateurs</h2>
-            <form method="post">
+            <form id = formParam  method="POST">
                 <p>Seuil de crédibilité minimum</p>
-                <input type="range" name="points" id="cred" value="20" min="-20" max="100" data-show-value="true">
+                <input class="paramCredibilite" type="range" name="points" id="cred" value="20" min="-20" max="100" data-show-value="true">
                 <p>Seuil de distance maximum des incidents </p>
-                <input type="range" name="Km" id="km" value="20" min="5" max="100" data-show-value="true">
+                <input class="paramDistance" type="range" name="Km" id="km" value="20" min="5" max="100" data-show-value="true">
                 <p>Notifications </p>
-                <input type="checkbox" data-role="flipswitch" name="switch" id="switch">
-                <input type="submit" data-inline="true" value="Sauvegarder">
+                <input class="paramNotif" type="checkbox" data-role="flipswitch" name="switch" id="switch">
+                <input type="submit" data-inline="true" name="param" value="Sauvegarder">
             </form>
             <a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow"  data-inline="true" data-rel="close" style="margin: auto; ">retour</a>
         </div>
@@ -301,7 +329,7 @@ session_start();
     <div data-role="page" id="pageNonConnecte">
         <div data-role="content" class="ui-content">
             <p>SafeRoad<p>
-            <form  class="formConnect" name="connexion" method="POST">
+            <form  id="formConnect" name="connexion" method="POST">
                 <label for="info">Login:</label>
                 <input name="login" class="connectLogin" required="required" id="login">
 
@@ -312,8 +340,6 @@ session_start();
                     <label for="checkbox-enhanced" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">Mémoriser les identifiants</label>
                     <input type="checkbox" name="checkbox-enhanced" id="checkbox-enhanced" data-enhanced="true">
                 </div>
-
-
                 <input class="ui-btn ui-icon-check ui-btn-icon-left" type="submit" name="connexion" value="Connexion">
             </form>
             <a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
