@@ -6,7 +6,17 @@ function getTypesIncident()
         . ' FROM Type_incident');
     return $incidents->fetchAll();
 }
+function getSeuilDistanceMax()
+{
+    $bdd = getBdd();
+    $distance = $bdd->prepare('SELECT seuilDistanceMax'
+        . ' FROM USER'
+        . ' WHERE idUser=?');
 
+    $param = array($_SESSION['id']);
+    $distance->execute($param);
+    return $distance;
+}
 //recupère un incident MODIF ALEXANDRE
 function getIncident($lattitude, $longitude, $distance)
 {
@@ -45,12 +55,15 @@ function getVerifUser($login, $mdp)
         . ' FROM USER'
         . ' WHERE pseudoUser=?'
         . ' AND motDePasse=?');
-    $param = array($login, md5($mdp));
+    $param = array($login, $mdp);
     $user->execute($param);
-    if ($user->rowcount() > 0)
-    return true; // Accès à la première ligne de résultat
-    else 
-    return false;
+    if ($user->rowcount() > 0) {
+        return true; // On a trouvé le USER
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /*Vérifie si le login existe (à integrer)*/
