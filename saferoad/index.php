@@ -313,7 +313,7 @@ session_start();
 
             <div id="map"></div>
             <!-- /footer -->
-            <div data-role="footer" data-position="fixed">
+            <div data-role="footer" data-position="fixed"  data-tap-toggle="false"  data-visible-on-page-show="false">
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#param" data-role="button" data-icon="user">Paramètres</a></li>

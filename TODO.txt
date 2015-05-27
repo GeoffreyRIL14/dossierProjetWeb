@@ -1,10 +1,10 @@
 -Faire la page d'inscription 
 -Memoriser les identifiants à l'aide de cookie (utiliser méthode token!)
 -figer la carte autour de la geoloc
--rendre fonctionnel les paramètres utilisateur
+-rendre fonctionnel les paramètres utilisateur(charger les paramètres)
 -faire le système de crédibilité
 -corriger le systeme de notification (on ne peux pas masquer ni éditer, et le nom de l'incident n'est pas afficher)
--fixer le footer
+- (OK) fixer le footer
 -mettre la hauteur de carte dynamique
 -Améliorer le design (alignement des boutons)
 -Commenter le code
