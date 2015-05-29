@@ -3,14 +3,14 @@ function getTypesIncident()
 {
     $bdd = getBdd();
     $incidents = $bdd->query('SELECT *'
-        . ' FROM Type_incident');
+        . ' FROM type_incident');
     return $incidents->fetchAll();
 }
 
 function setCredibilite($idIncident)
 {
     $bdd = getBdd();
-    $requete = 'Update USER'
+    $requete = 'Update user'
         . ' SET seuilCredibMin = ?,'
         . ' seuilDistanceMax = ?,'
         . ' enableNotif = ?'
@@ -24,7 +24,7 @@ function getCredibilite($idIncident)
 {
     $bdd = getBdd();
     $incidents = $bdd->query('SELECT *'
-        . ' FROM Type_incident');
+        . ' FROM type_incident');
     return $incidents->fetch();
 }
 
@@ -33,7 +33,7 @@ function getSeuilDistanceMax($idUser)
 {
     $bdd = getBdd();
     $distance = $bdd->prepare('SELECT seuilDistanceMax'
-        . ' FROM USER'
+        . ' FROM user'
         . ' WHERE idUser=?');
     $param = array($idUser);
     $distance->execute($param);
@@ -46,7 +46,7 @@ function getIncident($lattitude, $longitude, $distance)
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
     $requete = 'SELECT distinct incident.descriptionIncident, incident.lattitudeIncident, incident.longitudeIncident, incident.idType,type_incident.nomType, incident.idIncident,' .$formule.' AS dist'
         . ' FROM incident'
-        . ' INNER JOIN Type_incident ON(Type_incident.idType = incident.idType)'
+        . ' INNER JOIN type_incident ON(type_incident.idType = incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
 
 
@@ -59,7 +59,7 @@ function getIncident($lattitude, $longitude, $distance)
 function getLibelleTypeIncident($idType)
 {
     $bdd = getBdd();
-    $requete = 'SELECT nomType WHERE idType = ?';
+    $requete = 'SELECT nomType from incident WHERE idType = ?';
     $stmt= $bdd->prepare($requete);
     $param = array($idType);
     $stmt->execute($param);
@@ -81,7 +81,7 @@ function getVerifUser($login, $mdp)
 {
     $bdd = getBdd();
     $user = $bdd->prepare('SELECT idUser'
-        . ' FROM USER'
+        . ' FROM user'
         . ' WHERE pseudoUser=?'
         . ' AND motDePasse=?');
     $param = array($login, $mdp);
@@ -97,7 +97,7 @@ function getVerifUser($login, $mdp)
 function getLoginUser($login)
 {
     $bdd = getBdd();
-    $user = $bdd->prepare('SELECT * FROM USER WHERE pseudoUser = ?');
+    $user = $bdd->prepare('SELECT * FROM user WHERE pseudoUser = ?');
     $param = array($login);
     $user->execute($param);
 
@@ -115,7 +115,7 @@ function getLoginUser($login)
 function getParam($idUser)
 {
     $bdd = getBdd();
-    $stmt = $bdd->prepare('SELECT enableNotif, seuilCredibMin, seuilDistanceMax FROM USER WHERE idUser = ?');
+    $stmt = $bdd->prepare('SELECT enableNotif, seuilCredibMin, seuilDistanceMax FROM user WHERE idUser = ?');
     $param = array($idUser);
     $stmt->execute($param);
     $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -137,7 +137,7 @@ function setUser($login, $mdp)
 function setParamUser($idUser, $seuilCredib, $seuilDistance, $notif)
 {
     $bdd = getBdd();
-    $requete = 'Update USER'
+    $requete = 'Update user'
         . ' SET seuilCredibMin = ?,'
         . ' seuilDistanceMax = ?,'
         . ' enableNotif = ?'
