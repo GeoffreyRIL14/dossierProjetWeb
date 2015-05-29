@@ -7,8 +7,8 @@ $login = $l;
 $mdp = $m;
 $idUser = array();
 $idUser = getVerifUser($login, $mdp);
-if ($idUser[0] != null) {
-    $_SESSION['idUser'] = $idUser[0];
+if ($idUser[0]['idUser'] != null) {
+    $_SESSION['idUser'] = $idUser[0]['idUser'];
     echo 1;
 }
 else

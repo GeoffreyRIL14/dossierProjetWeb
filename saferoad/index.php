@@ -17,7 +17,9 @@ session_start();
         #map
         {
             width:100%;
-            height:300px;
+            min-height: 300px;
+            height: 100%;
+            margin: 0;
         }
     </style>
     <script type="text/javascript">
@@ -39,7 +41,8 @@ session_start();
                     data: {l: login, m: mdp},
                     success: function (data) {
                         if(data != 0)
-                            window.location.hash = '#pageConnecte' ;
+                            chargeParam();
+                        window.location.hash = '#pageConnecte' ;
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -57,14 +60,40 @@ session_start();
                 if ($('.paramNotif').is(":checked")){
                     notif = 1 //la case est bien cochée
                 }
-
-
-
                 $.ajax({
                     type: 'POST',
                     url:  './ajax/changeParam.php',
                     data:{id: idUser, dist: distance, cred: credibilite, not: notif},
                     success: function(data){
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+
+            function chargeParam()
+            {
+                $.ajax({
+                    type: 'GET',
+                    url:  './ajax/chargeParam.php',
+                    data:{},
+                    success: function(data) {
+                        //chaque argument d'incident
+                        var param = data.split(",");
+                        var enableNotif = param[0];
+                        var seuilCredibMax = param[1];
+                        var seuilDistanceMax = param[2];
+                        $('#pageConnecte').page();
+                        $('.paramDistance').val(seuilDistanceMax);
+                        $('.paramDistance').slider('refresh');
+                        $('.paramCredibilite').val(seuilCredibMax);
+                        $('.paramCredibilite').slider('refresh');
+                        if (enableNotif == 1)
+                        // To check
+                        {
+                            $('.ui-flipswitch').toggleClass('ui-flipswitch-active')
+                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -80,8 +109,6 @@ session_start();
                 changeParam();
                 return false;
             });
-
-
         });
         //Requête ajax recupérant tous les incidents
         function recupereIncidents() {
@@ -92,11 +119,10 @@ session_start();
                 success: function (data, textStatus, jqXHR) {
                     //Chaque incident
                     var incident = data.split("/");
-                    console.log(incident);
-
                     for (var i = incident.length - 1; i >= 0; i--) {
                         //chaque argument d'incident
                         var param = incident[i].split(",");
+                        console.log(param);
                         var description = param[0];
                         var lat = param[1];
                         var lng = param[2];
@@ -107,7 +133,6 @@ session_start();
                             ajoutMarqueur(description, lat, lng, idType);
                             insereNotification(idIncident, nomType, description);
                         }
-
                     }
                     ;
 
@@ -209,6 +234,29 @@ session_start();
                 infoBulle.open(map, marqueur);
             });
         }
+
+        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
+        		function createUser(login, mdp)
+        		{
+        			$.ajax
+        			({
+        				type: 'POST',
+            				url:'./ajax/createUser.php',
+            				data: '&l=' + login,
+            				success: function(data, textStatus, jqXHR)
+        				{
+        					if(data == "")
+            					{
+            						alert(data);
+        					}
+        				},
+        				error: function(jqXHR, textStatus, errorThrown)
+        				{
+        					alert(errorThrown);
+        				}
+        			});
+        		}
+
         function insereNotification(idNotification, typeIncident, descriptionIncident) {
             var idJQNotif = '#notif_' + idNotification;
 
@@ -254,9 +302,11 @@ session_start();
 <div id="main" role="main" data-role="content" class="ui-content">
     <?php if (!isset($_SESSION['id']) || !getVerifUser($_COOKIE['SFlogin'],$_COOKIE['SFmdp'])){?>
         <script>document.location.hash = 'pageNonConnecte';</script>
-    <?php }?>
+    <?php }
+    else{?>
+        <script>chargeParam();</script>
+    <?php } ?>
     <div data-role="page" id="pageConnecte">
-
         <div data-role="panel" id="signaler" data-position="right">
             <h2>Signaler un incident</h2>
             <form name = "incident" >
@@ -324,7 +374,24 @@ session_start();
             </div><!-- /footer -->
         </div>
     </div>
+    <!-- page inscription -->
+    			<div data-role="page" id="pageInscription">
+        				<div data-role="content" class="ui-content">
+            					<p>Inscription nouvel utilisateur</p>
+            					<form name = "inscription">
 
+                						<!-- partie pseudo -->
+                						<label for="info">Pseudo</label>
+                						<input name="newLogin" id="newPseudo"></input>
+
+                						<!-- partie mot de passe -->
+                						<label for="info">Mot de passe</label>
+                						<input type="password" name="newMdp" id="newPassword"></input>
+
+                						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
+                					</form>
+            				</div>
+        			</div>
     <!-- page non connecté -->
     <div data-role="page" id="pageNonConnecte">
         <div data-role="content" class="ui-content">
@@ -342,7 +409,7 @@ session_start();
                 </div>
                 <input class="ui-btn ui-icon-check ui-btn-icon-left" type="submit" name="connexion" value="Connexion">
             </form>
-            <a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
+            <a href="#pageInscription" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
         </div>
     </div>
 </body>

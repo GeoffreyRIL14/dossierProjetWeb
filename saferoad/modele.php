@@ -6,29 +6,26 @@ function getTypesIncident()
         . ' FROM Type_incident');
     return $incidents->fetchAll();
 }
-function getSeuilDistanceMax()
+function getSeuilDistanceMax($idUser)
 {
     $bdd = getBdd();
     $distance = $bdd->prepare('SELECT seuilDistanceMax'
         . ' FROM USER'
         . ' WHERE idUser=?');
-
-    $param = array($_SESSION['id']);
+    $param = array($idUser);
     $distance->execute($param);
-    return $distance;
+    return $distance->fetch();
 }
 //recupère un incident MODIF ALEXANDRE
 function getIncident($lattitude, $longitude, $distance)
 {
     $bdd = getBdd();
-
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
-    $requete = 'SELECT distinct Incident.descriptionIncident, Incident.lattitudeIncident, Incident.longitudeIncident, Incident.idType,  '.$formule.' AS dist'
-        . ' FROM Incident'
-        . ' INNER JOIN Type_incident ON(Type_incident.idType = Incident.idType)'
+    $requete = 'SELECT distinct incident.descriptionIncident, incident.lattitudeIncident, incident.longitudeIncident, incident.idType,type_incident.nomType, incident.idIncident,' .$formule.' AS dist'
+        . ' FROM incident'
+        . ' INNER JOIN Type_incident ON(Type_incident.idType = incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
 
-    /*$incidents = $bdd->query($requete);*/
 
     $stmt = $bdd->prepare($requete);
     $stmt->execute();
@@ -36,6 +33,15 @@ function getIncident($lattitude, $longitude, $distance)
     return $lignes;
 }
 
+function getLibelleTypeIncident($idType)
+{
+    $bdd = getBdd();
+    $requete = 'SELECT nomType WHERE idType = ?';
+    $stmt= $bdd->prepare($requete);
+    $param = array($idType);
+    $stmt->execute($param);
+    return $stmt;
+}
 // ajoute un incident
 function setIncident($desc, $idType,$lat, $lng)
 {
@@ -80,6 +86,17 @@ function getLoginUser($login)
     {
         return false;/*pseudo indisponible*/
     }
+}
+
+/*Récupère les param de l'utilisateur*/
+function getParam($idUser)
+{
+    $bdd = getBdd();
+    $stmt = $bdd->prepare('SELECT enableNotif, seuilCredibMin, seuilDistanceMax FROM USER WHERE idUser = ?');
+    $param = array($idUser);
+    $stmt->execute($param);
+    $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $lignes;
 }
 
 // ajoute un incident
