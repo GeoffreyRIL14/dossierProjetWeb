@@ -6,6 +6,29 @@ function getTypesIncident()
         . ' FROM Type_incident');
     return $incidents->fetchAll();
 }
+
+function setCredibilite($idIncident)
+{
+    $bdd = getBdd();
+    $requete = 'Update USER'
+        . ' SET seuilCredibMin = ?,'
+        . ' seuilDistanceMax = ?,'
+        . ' enableNotif = ?'
+        . ' WHERE idUser = ?';
+    $stmt = $bdd->prepare($requete);
+    $param = array(getCredibilite($idIncident)+1);
+    $stmt->execute($param);
+}
+
+function getCredibilite($idIncident)
+{
+    $bdd = getBdd();
+    $incidents = $bdd->query('SELECT *'
+        . ' FROM Type_incident');
+    return $incidents->fetch();
+}
+
+
 function getSeuilDistanceMax($idUser)
 {
     $bdd = getBdd();
@@ -122,17 +145,6 @@ function setParamUser($idUser, $seuilCredib, $seuilDistance, $notif)
     $stmt = $bdd->prepare($requete);
     $param = array($seuilCredib, $seuilDistance, $notif, $idUser);
     $stmt->execute($param);
-
-
-
-//    $bdd = getBdd();
-//    $paramUser = $bdd->prepare('Update USER'
-//        . 'SET seuilCredibMin = ?'
-//        . 'SET seuilDistanceMax = ?'
-//        . 'SET enableNotif = ?'
-//        . 'WHERE idUser = ?');
-//    $param = array($seuilCredib, $seuilDistance, $notif, $idUser);
-//    $paramUser->execute($param);
 }
 
 

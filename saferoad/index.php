@@ -13,7 +13,19 @@ session_start();
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="./jquery.md5.js"></script>
     <style type="text/css">
+        #credibPlus
+        {
+            background-color:#5cb85c  ;
+            color:white;
+            font-family: "Agency FB", Calibri, "Californian FB", serif;
+        }
+        #credibMoins
+        {
+           background-color:#d9534f  ;
+           color:white;
+           font-family: "Agency FB", Calibri, "Californian FB", serif;
 
+        }
         #map
         {
             width:100%;
@@ -122,7 +134,6 @@ session_start();
                     for (var i = incident.length - 1; i >= 0; i--) {
                         //chaque argument d'incident
                         var param = incident[i].split(",");
-                        console.log(param);
                         var description = param[0];
                         var lat = param[1];
                         var lng = param[2];
@@ -226,7 +237,9 @@ session_start();
             }
 
             var marqueur = new google.maps.Marker(optionsMarqueur);
-            var contenuInfoBulle = desc;
+            var contenuInfoBulle = desc + "<br>"
+                +"<a href='#' id='credibPlus' class='ui-btn'>Créditer</a>"
+                +"<a href='#' id='credibMoins' class='ui-btn'>Décréditer</a>"
             var infoBulle = new google.maps.InfoWindow({
                 content: contenuInfoBulle
             })
@@ -282,7 +295,6 @@ session_start();
                 url: './ajax/ajoutIncident.php',
                 data: '&d=' + description + '&t=' + 1 + '&lat=' + lat + '&lng=' + lng,
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
