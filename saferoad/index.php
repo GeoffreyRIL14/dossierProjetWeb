@@ -393,11 +393,11 @@ session_start();
             					<form name = "inscription">
 
                 						<!-- partie pseudo -->
-                						<label for="info">Pseudo</label>
+                						<label for="info">Entrez votre email, qui sera aussi votre login :</label>
                 						<input name="newLogin" id="newPseudo"></input>
 
                 						<!-- partie mot de passe -->
-                						<label for="info">Mot de passe</label>
+                						<label for="info">Entrez votre mot de passe :</label>
                 						<input type="password" name="newMdp" id="newPassword"></input>
 
                 						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
@@ -409,7 +409,7 @@ session_start();
         <div data-role="content" class="ui-content">
             <p>SafeRoad<p>
             <form  id="formConnect" name="connexion" method="POST">
-                <label for="info">Login:</label>
+                <label for="info">Email:</label>
                 <input name="login" class="connectLogin" required="required" id="login">
 
                 <label for="info">Mot de passe:</label>
