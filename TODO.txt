@@ -1,10 +1,12 @@
--Faire la page d'inscription 
+-Faire la page d'inscription(inscription par mail) 
 -Memoriser les identifiants à l'aide de cookie (utiliser méthode token!)
 -figer la carte autour de la geoloc
--rendre fonctionnel les paramètres utilisateur(charger les paramètres)
--faire le système de crédibilité
--corriger le systeme de notification (on ne peux pas masquer ni éditer, et le nom de l'incident n'est pas afficher)
-- (OK) fixer le footer
--mettre la hauteur de carte dynamique
--Améliorer le design (alignement des boutons)
--Commenter le code
+-rendre fonctionnel les paramètres utilisateur(charger les paramètres) FAIT
+-faire le système de crédibilité ANTOINE
+-corriger le systeme de notification (on ne peux pas masquer ni éditer, et le nom de l'incident n'est pas afficher) GEOFFREY
+-fixer le footer FAIT 
+-mettre la hauteur de carte dynamique ANTOINE
+-Améliorer le design (alignement des boutons) ALEXANDRE
+-Commenter le code ANTOINE
+-Faire les triggers(suppression incident après 4h) GEOFFREY
+-Faire le powerPoint ALEXANDRE
