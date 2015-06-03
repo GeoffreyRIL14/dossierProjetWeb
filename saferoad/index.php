@@ -77,6 +77,8 @@ session_start();
                     url:  './ajax/changeParam.php',
                     data:{id: idUser, dist: distance, cred: credibilite, not: notif},
                     success: function(data){
+                        chargeParam();
+                        recupereIncidents(1);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -141,7 +143,7 @@ session_start();
                         var nomType = param[4];
                         var idIncident = param[5];
                         if (lat != null) {
-                            ajoutMarqueur(description, lat, lng, idType);
+                            ajoutMarqueur(description, lat, lng, idType,nomType);
                             insereNotification(idIncident, nomType, description);
                         }
                     }
@@ -188,8 +190,9 @@ session_start();
         function Initialisation(latitude, longitude) {
             pos = new google.maps.LatLng(latitude, longitude);
             var myOptions = {
-                zoom: 10,
+                zoom: 13,
                 center: pos,
+                draggable : false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             map = new google.maps.Map(document.getElementById("map"), myOptions);
@@ -198,7 +201,7 @@ session_start();
         }
 
         //Ajoute UN marqueur et affiche la description de l'incident sur le click
-        function ajoutMarqueur(desc, lat, lng, idType) {
+        function ajoutMarqueur(desc, lat, lng, idType, libelleIncident ) {
             var urlImage;
             if (lat != null) {
                 pos = new google.maps.LatLng(lat, lng);
@@ -237,9 +240,17 @@ session_start();
             }
 
             var marqueur = new google.maps.Marker(optionsMarqueur);
-            var contenuInfoBulle = desc + "<br>"
-                +"<a href='#' id='credibPlus' class='ui-btn'>Créditer</a>"
-                +"<a href='#' id='credibMoins' class='ui-btn'>Décréditer</a>"
+            if (idtype = null)
+            {
+                var contenuInfoBulle = 'Votre position';
+            }
+            else
+            {
+                var contenuInfoBulle = "<h2>" + libelleIncident + "</h2> <br>" + desc + "<br>"
+                    +"<a href='#' id='credibPlus' class='ui-btn'>Créditer</a>"
+                    +"<a href='#' id='credibMoins' class='ui-btn'>Décréditer</a>"
+            }
+
             var infoBulle = new google.maps.InfoWindow({
                 content: contenuInfoBulle
             })
@@ -302,16 +313,36 @@ session_start();
             });
         }
 
+
+        //requête ajax permettant d'ajouter un nouvel incident
+        function noter(ajout) {
+             $.ajax({
+                type: 'POST',
+                url: './ajax/noter.php',
+                data: data:{a: ajout},
+                success: function (data, textStatus, jqXHR) {
+                    //Opération réussi
+                    if (data == true)
+                    //TODO
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+
         $(document).on('pageshow', '#pageConnecte', function(e, data){
             recuperePos(0);
-
         });
     </script>
 
 </head>
 <body>
 <!-- page connecté -->
+
+
 <div id="main" role="main" data-role="content" class="ui-content">
+
     <?php if (!isset($_SESSION['id']) || !getVerifUser($_COOKIE['SFlogin'],$_COOKIE['SFmdp'])){?>
         <script>document.location.hash = 'pageNonConnecte';</script>
     <?php }
@@ -336,7 +367,10 @@ session_start();
                         ?>
                     </optgroup>
                 </select>
-
+<!--                <script type="text/javascript">-->
+<!--                    setInterval("recuperePos(0)", 10000);-->
+<!--                    setInterval("recuperePos(1)", 11000);-->
+<!--                </script>-->
                 <label for="info">description</label>
                 <textarea name="desc" id="description" style="height:40%"></textarea>
             </form>

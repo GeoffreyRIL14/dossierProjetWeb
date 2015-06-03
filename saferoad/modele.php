@@ -68,11 +68,12 @@ function getLibelleTypeIncident($idType)
 // ajoute un incident
 function setIncident($desc, $idType,$lat, $lng)
 {
+    $date = date("Ymd");
     $bdd = getBdd();
     $incident = $bdd->prepare('INSERT INTO incident'
-            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident)'
-            . ' VALUES (?,?,?,?,?,?)'); 
-    $param = array($desc, 1, 1, $idType, $lat, $lng);
+            . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident,dateHeureIncident)'
+            . ' VALUES (?,?,?,?,?,?,?)');
+    $param = array($desc, 1, 1, $idType, $lat, $lng, $date);
     $incident->execute($param);
 }
 
