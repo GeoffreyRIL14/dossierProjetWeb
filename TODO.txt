@@ -8,5 +8,5 @@
 -mettre la hauteur de carte dynamique ANTOINE
 -Améliorer le design (alignement des boutons) ALEXANDRE
 -Commenter le code ANTOINE
--Faire les triggers(suppression incident après 4h) GEOFFREY
+-Faire les triggers(suppression incident après 4h) GEOFFREY en local->OK(version 4h après dateHeure création... peut être potentiellement amélioré en utilisant la dernière date de +1 ou de commentaire... à discuter) sur le serveur ->NOK (problème de droits...) 
 -Faire le powerPoint ALEXANDRE
