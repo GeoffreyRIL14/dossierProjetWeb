@@ -7,25 +7,51 @@ function getTypesIncident()
     return $incidents->fetchAll();
 }
 
-function setCredibilite($idIncident)
+function setCredibilite($notation, $idIncident)
 {
     $bdd = getBdd();
-    $requete = 'Update user'
-        . ' SET seuilCredibMin = ?,'
-        . ' seuilDistanceMax = ?,'
-        . ' enableNotif = ?'
-        . ' WHERE idUser = ?';
+    $requete = 'Update incident'
+        . ' SET nbPoint = ?'
+        . ' WHERE idIncident = ?';
     $stmt = $bdd->prepare($requete);
-    $param = array(getCredibilite($idIncident)+1);
+    $param = array($notation,$idIncident);
     $stmt->execute($param);
 }
 
+function getNoter($idUser, $idIncident)
+{
+    $bdd = getBdd();
+    $ANoter = $bdd->prepare('SELECT idUser'
+        . ' FROM noter'
+        . ' WHERE idUser=?'
+        . ' AND idIncident=?');
+    $param = array($idUser, $idIncident);
+    $ANoter->execute($param);
+    $ligne = $ANoter->fetch();
+    if ($ANoter->rowcount() == 0) {
+        return 0;
+    }
+    else
+        return 1;
+}
+function setNoter($idUser, $idIncident)
+{
+    $bdd = getBdd();
+    $noter = $bdd->prepare('INSERT INTO noter'
+        . '(idUser, idIncident)'
+        . ' VALUES (?,?)');
+    $param = array($idUser, $idIncident);
+    $noter->execute($param);
+}
 function getCredibilite($idIncident)
 {
     $bdd = getBdd();
-    $incidents = $bdd->query('SELECT *'
-        . ' FROM type_incident');
-    return $incidents->fetch();
+    $credibilite = $bdd->prepare('SELECT nbPoint'
+        . ' FROM incident'
+        . ' WHERE idIncident = ?');
+    $param = array($idIncident);
+    $credibilite->execute($param);
+    return $credibilite->fetch();
 }
 
 

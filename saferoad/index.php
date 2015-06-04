@@ -143,7 +143,7 @@ session_start();
                         var nomType = param[4];
                         var idIncident = param[5];
                         if (lat != null) {
-                            ajoutMarqueur(description, lat, lng, idType,nomType);
+                            ajoutMarqueur(description, lat, lng, idType,nomType, idIncident);
                             insereNotification(idIncident, nomType, description);
                         }
                     }
@@ -201,7 +201,7 @@ session_start();
         }
 
         //Ajoute UN marqueur et affiche la description de l'incident sur le click
-        function ajoutMarqueur(desc, lat, lng, idType, libelleIncident ) {
+        function ajoutMarqueur(desc, lat, lng, idType, libelleIncident, idIncident ) {
             var urlImage;
             if (lat != null) {
                 pos = new google.maps.LatLng(lat, lng);
@@ -247,8 +247,8 @@ session_start();
             else
             {
                 var contenuInfoBulle = "<h2>" + libelleIncident + "</h2> <br>" + desc + "<br>"
-                    +"<a href='#' id='credibPlus' class='ui-btn'>Créditer</a>"
-                    +"<a href='#' id='credibMoins' class='ui-btn'>Décréditer</a>"
+                    + "<a onclick='noter(1," + idIncident + ")' href='#' id='credibPlus' class='ui-btn'>Créditer</a>"
+                    + "<a onclick='noter(0," + idIncident + ")' href='#' id='credibMoins' class='ui-btn'>Décréditer</a>"
             }
 
             var infoBulle = new google.maps.InfoWindow({
@@ -315,14 +315,22 @@ session_start();
 
 
         //requête ajax permettant d'ajouter un nouvel incident
-        function noter(ajout) {
+        function noter(ajout, idIncident) {
+            var idUser = <?php  echo (isset($_SESSION['idUser']))? intval($_SESSION['idUser']) : 0; ?> ;
              $.ajax({
                 type: 'POST',
                 url: './ajax/noter.php',
-                data: data:{a: ajout},
+                data: {a:ajout, idU:idUser, idI:idIncident},
                 success: function (data, textStatus, jqXHR) {
-                    //Opération réussi
-                    if (data == true)
+                    //Opération échoué
+                    if (data != 1)
+                    {
+                        alert(data);
+                    }
+                    else
+                    {
+                        alert("Merci d'avoir noté cet incident");
+                    }
                     //TODO
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
