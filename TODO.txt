@@ -13,3 +13,4 @@
 -Enlever le controle du zoom sur l'api de Google
 -corrections ajout incidents 4 types d'incidents OK
 -bug : on peut évaluer notre position courante sur la carte
+-a discuter : pour les commentaires est-ce que le dernier commentaire pour un utilisateur donné écrase son commentaire précédent? (s'il y en avait un)
