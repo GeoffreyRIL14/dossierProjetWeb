@@ -262,26 +262,26 @@ session_start();
         }
 
         /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
-        		function createUser(login, mdp)
-        		{
-        			$.ajax
-        			({
-        				type: 'POST',
-            				url:'./ajax/createUser.php',
-            				data: '&l=' + login,
-            				success: function(data, textStatus, jqXHR)
-        				{
-        					if(data == "")
-            					{
-            						alert(data);
-        					}
-        				},
-        				error: function(jqXHR, textStatus, errorThrown)
-        				{
-        					alert(errorThrown);
-        				}
-        			});
-        		}
+                function createUser(login, mdp)
+                {
+                    $.ajax
+                    ({
+                        type: 'POST',
+                            url:'./ajax/createUser.php',
+                            data: '&l=' + login,
+                            success: function(data, textStatus, jqXHR)
+                        {
+                            if(data == "")
+                                {
+                                    alert(data);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert(errorThrown);
+                        }
+                    });
+                }
 
         function insereNotification(idNotification, typeIncident, descriptionIncident) {
             var idJQNotif = '#notif_' + idNotification;
@@ -306,7 +306,7 @@ session_start();
             $.ajax({
                 type: 'GET',
                 url: './ajax/ajoutIncident.php',
-                data: '&d=' + description + '&t=' + 1 + '&lat=' + lat + '&lng=' + lng,
+                data: '&d=' + description + '&t=' + idType + '&lat=' + lat + '&lng=' + lng,
                 success: function (data, textStatus, jqXHR) {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -431,23 +431,23 @@ session_start();
         </div>
     </div>
     <!-- page inscription -->
-    			<div data-role="page" id="pageInscription">
-        				<div data-role="content" class="ui-content">
-            					<p>Inscription nouvel utilisateur</p>
-            					<form name = "inscription">
+                <div data-role="page" id="pageInscription">
+                        <div data-role="content" class="ui-content">
+                                <p>Inscription nouvel utilisateur</p>
+                                <form name = "inscription">
 
-                						<!-- partie pseudo -->
-                						<label for="info">Entrez votre email, qui sera aussi votre login :</label>
-                						<input name="newLogin" id="newPseudo"></input>
+                                        <!-- partie pseudo -->
+                                        <label for="info">Entrez votre email, qui sera aussi votre login :</label>
+                                        <input name="newLogin" id="newPseudo"></input>
 
-                						<!-- partie mot de passe -->
-                						<label for="info">Entrez votre mot de passe :</label>
-                						<input type="password" name="newMdp" id="newPassword"></input>
+                                        <!-- partie mot de passe -->
+                                        <label for="info">Entrez votre mot de passe :</label>
+                                        <input type="password" name="newMdp" id="newPassword"></input>
 
-                						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
-                					</form>
-            				</div>
-        			</div>
+                                        <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
+                                    </form>
+                            </div>
+                    </div>
     <!-- page non connecté -->
     <div data-role="page" id="pageNonConnecte">
         <div data-role="content" class="ui-content">
