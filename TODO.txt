@@ -12,3 +12,4 @@
 -Faire le powerPoint ALEXANDRE
 -Enlever le controle du zoom sur l'api de Google
 -corrections ajout incidents 4 types d'incidents OK
+-bug : on peut évaluer notre position courante sur la carte
