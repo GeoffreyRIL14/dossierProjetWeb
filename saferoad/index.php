@@ -29,7 +29,7 @@ session_start();
         #map
         {
             width:100%;
-            min-height: 300px;
+            min-height: 500px;
             height: 100%;
             margin: 0;
         }
@@ -121,6 +121,7 @@ session_start();
 
             $('#formParam').submit(function () {
                 changeParam();
+                recuperePos(1);
                 return false;
             });
         });
@@ -142,8 +143,9 @@ session_start();
                         var idType = param[3];
                         var nomType = param[4];
                         var idIncident = param[5];
+                        var notation = param[6];
                         if (lat != null) {
-                            ajoutMarqueur(description, lat, lng, idType,nomType, idIncident);
+                            ajoutMarqueur(description, lat, lng, idType,nomType, idIncident, notation);
                             insereNotification(idIncident, nomType, description);
                         }
                     }
@@ -163,7 +165,7 @@ session_start();
                 navigator.geolocation.getCurrentPosition(
                     geo_ok,
                     geo_error,
-                    {enableHighAccuracy: true, maximumAge: 5000, timeout: 50000}
+                    {enableHighAccuracy: true, maximumAge: 5000, timeout: 10000}
                 );
             } else {
                 alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
@@ -201,7 +203,7 @@ session_start();
         }
 
         //Ajoute UN marqueur et affiche la description de l'incident sur le click
-        function ajoutMarqueur(desc, lat, lng, idType, libelleIncident, idIncident ) {
+        function ajoutMarqueur(desc, lat, lng, idType, libelleIncident, idIncident, notation ) {
             var urlImage;
             if (lat != null) {
                 pos = new google.maps.LatLng(lat, lng);
@@ -246,7 +248,7 @@ session_start();
             }
             else
             {
-                var contenuInfoBulle = "<h2>" + libelleIncident + "</h2> <br>" + desc + "<br>"
+                var contenuInfoBulle = "<h2>" + libelleIncident + "</h2> <p> Points: " + notation + "</p><br>" + desc + "<br>"
                     + "<a onclick='noter(1," + idIncident + ")' href='#' id='credibPlus' class='ui-btn'>Créditer</a>"
                     + "<a onclick='noter(0," + idIncident + ")' href='#' id='credibMoins' class='ui-btn'>Décréditer</a>"
             }

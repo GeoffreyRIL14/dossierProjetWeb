@@ -65,12 +65,23 @@ function getSeuilDistanceMax($idUser)
     $distance->execute($param);
     return $distance->fetch();
 }
+
+//function getLibelleCredibilite($notation)
+//{
+//    $bdd = getBdd();
+//    $credibilite = $bdd->prepare('SELECT libelleCredibilite'
+//        . ' FROM credibilite'
+//        . ' WHERE valeurCredibilite = ROUND(?)');
+//    $param = array($notation);
+//    $credibilite->execute($param);
+//    return $credibilite->fetch();
+//}
 //recupère un incident MODIF ALEXANDRE
 function getIncident($lattitude, $longitude, $distance)
 {
     $bdd = getBdd();
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
-    $requete = 'SELECT distinct incident.descriptionIncident, incident.lattitudeIncident, incident.longitudeIncident, incident.idType,type_incident.nomType, incident.idIncident,' .$formule.' AS dist'
+    $requete = 'SELECT distinct incident.descriptionIncident, incident.lattitudeIncident, incident.longitudeIncident, incident.idType,type_incident.nomType, incident.idIncident, incident.nbPoint,' .$formule.' AS dist'
         . ' FROM incident'
         . ' INNER JOIN type_incident ON(type_incident.idType = incident.idType)'
         . ' WHERE '.$formule.'<='.$distance.' ORDER by dist ASC';
