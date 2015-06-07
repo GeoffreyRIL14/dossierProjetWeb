@@ -33,6 +33,11 @@ session_start();
             height: 100%;
             margin: 0;
         }
+
+        .ui-btn
+        {
+            text-align: center;
+        }
     </style>
     <script type="text/javascript">
 
@@ -384,8 +389,8 @@ session_start();
                 <label for="info">description</label>
                 <textarea name="desc" id="description" style="height:40%"></textarea>
             </form>
-            <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
-            <a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
+            <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
+            <a href="#pageConnecte" class="ui-btn ui-corner-all ui-shadow" data-rel="close" style="margin: auto; margin-top: 50px;">retour</a>
         </div>
 
         <div data-role="panel" id="param">
@@ -463,9 +468,9 @@ session_start();
                     <label for="checkbox-enhanced" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">Mémoriser les identifiants</label>
                     <input type="checkbox" name="checkbox-enhanced" id="checkbox-enhanced" data-enhanced="true">
                 </div>
-                <input class="ui-btn ui-icon-check ui-btn-icon-left" type="submit" name="connexion" value="Connexion">
+                <input class="ui-btn ui-icon-check ui-icon-left" type="submit" name="connexion" value="Connexion">
             </form>
-            <a href="#pageInscription" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
+            <a href="#pageInscription" class="ui-btn" name="inscription" style="border-radius: .3125em; box-shadow: 0 2px 3px rgba(0,0,0,.15);">Inscription</a>
         </div>
     </div>
 </body>
