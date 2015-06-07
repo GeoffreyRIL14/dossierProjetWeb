@@ -1,4 +1,6 @@
 <?php
+// ---------------------------requête permettant de recuperer les types d'incident ---------------------------------------------------
+
 function getTypesIncident()
 {
     $bdd = getBdd();
@@ -6,6 +8,9 @@ function getTypesIncident()
         . ' FROM type_incident');
     return $incidents->fetchAll();
 }
+// ---------------------------/requête permettant de recuperer les types d'incident ---------------------------------------------------
+
+// ---------------------------requête permettant de maj la crédibilité ---------------------------------------------------
 
 function setCredibilite($notation, $idIncident)
 {
@@ -17,6 +22,9 @@ function setCredibilite($notation, $idIncident)
     $param = array($notation,$idIncident);
     $stmt->execute($param);
 }
+// ---------------------------/requête permettant de maj la crédibilité ---------------------------------------------------
+
+// ---------------------------requête permettant de verifier qu'un user n'a pas déja noté ---------------------------------------------------
 
 function getNoter($idUser, $idIncident)
 {
@@ -34,6 +42,11 @@ function getNoter($idUser, $idIncident)
     else
         return 1;
 }
+
+// ---------------------------/requête permettant de verifier qu'un user n'a pas déja noté ---------------------------------------------------
+
+// ---------------------------requête permettant d'ajouter un utilisateur et un incident dans la table noter ---------------------------------------------------
+
 function setNoter($idUser, $idIncident)
 {
     $bdd = getBdd();
@@ -43,6 +56,11 @@ function setNoter($idUser, $idIncident)
     $param = array($idUser, $idIncident);
     $noter->execute($param);
 }
+
+// ---------------------------/requête permettant d'ajouter un utilisateur et un incident dans la table noter ---------------------------------------------------
+
+// ---------------------------requête permettant de recuperer le nombre de point de cred d'un incident ---------------------------------------------------
+
 function getCredibilite($idIncident)
 {
     $bdd = getBdd();
@@ -53,7 +71,9 @@ function getCredibilite($idIncident)
     $credibilite->execute($param);
     return $credibilite->fetch();
 }
+// ---------------------------/requête permettant de recuperer le nombre de point de cred d'un incident ---------------------------------------------------
 
+// ---------------------------requête permettant de recuperer le seuil de distance max ---------------------------------------------------
 
 function getSeuilDistanceMax($idUser)
 {
@@ -65,6 +85,7 @@ function getSeuilDistanceMax($idUser)
     $distance->execute($param);
     return $distance->fetch();
 }
+// --------------------------- /requête permettant de recuperer le seuil de distance max ---------------------------------------------------
 
 //function getLibelleCredibilite($notation)
 //{
@@ -76,7 +97,9 @@ function getSeuilDistanceMax($idUser)
 //    $credibilite->execute($param);
 //    return $credibilite->fetch();
 //}
-//recupère un incident MODIF ALEXANDRE
+
+// --------------------------- requête permettant de recuperer les incidents ---------------------------------------------------
+
 function getIncident($lattitude, $longitude, $distance)
 {
     $bdd = getBdd();
@@ -92,17 +115,19 @@ function getIncident($lattitude, $longitude, $distance)
     $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $lignes;
 }
+// --------------------------- /requête permettant de recuperer les incidents ---------------------------------------------------
 
-function getLibelleTypeIncident($idType)
-{
-    $bdd = getBdd();
-    $requete = 'SELECT nomType from incident WHERE idType = ?';
-    $stmt= $bdd->prepare($requete);
-    $param = array($idType);
-    $stmt->execute($param);
-    return $stmt;
-}
-// ajoute un incident
+//function getLibelleTypeIncident($idType)
+//{
+//    $bdd = getBdd();
+//    $requete = 'SELECT nomType from incident WHERE idType = ?';
+//    $stmt= $bdd->prepare($requete);
+//    $param = array($idType);
+//    $stmt->execute($param);
+//    return $stmt;
+//}
+
+// --------------------------- requête permettant d'ajouter un incident ---------------------------------------------------
 function setIncident($desc, $idType,$lat, $lng)
 {
     $date = date("Ymd");
@@ -113,8 +138,10 @@ function setIncident($desc, $idType,$lat, $lng)
     $param = array($desc, 1, 1, $idType, $lat, $lng, $date);
     $incident->execute($param);
 }
+// --------------------------- /requête permettant d'ajouter un incident ---------------------------------------------------
 
-//Vérifie un utlisateur
+// --------------------------- requête permettant de verifier l'existance d'un user ---------------------------------------------------
+
 function getVerifUser($login, $mdp)
 {
     $bdd = getBdd();
@@ -131,7 +158,10 @@ function getVerifUser($login, $mdp)
         return $ligne;
 }
 
-/*Vérifie si le login existe (à integrer)*/
+// --------------------------- /requête permettant de verifier l'existance d'un user ---------------------------------------------------
+
+// --------------------------- requête permettant de verifier  si le login existe ---------------------------------------------------
+
 function getLoginUser($login)
 {
     $bdd = getBdd();
@@ -148,8 +178,10 @@ function getLoginUser($login)
         return false;/*pseudo indisponible*/
     }
 }
+// --------------------------- /requête permettant de verifier  si le login existe ---------------------------------------------------
 
-/*Récupère les param de l'utilisateur*/
+// --------------------------- requête permettant de récupèrer les param de l'utilisateur---------------------------------------------------
+
 function getParam($idUser)
 {
     $bdd = getBdd();
@@ -159,8 +191,10 @@ function getParam($idUser)
     $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $lignes;
 }
+// --------------------------- /requête permettant de récupèrer les param de l'utilisateur---------------------------------------------------
 
-// ajoute un incident
+// --------------------------- requête permettant d'ajouter un user---------------------------------------------------
+
 function setUser($login, $mdp)
 {
     $bdd = getBdd();
@@ -170,7 +204,9 @@ function setUser($login, $mdp)
     $param = array($login, md5($mdp));
     $incident->execute($param);
 }
+// --------------------------- /requête permettant d'ajouter un user---------------------------------------------------
 
+// --------------------------- requête permettant de mettre a jour les param---------------------------------------------------
 
 function setParamUser($idUser, $seuilCredib, $seuilDistance, $notif)
 {
@@ -185,6 +221,7 @@ function setParamUser($idUser, $seuilCredib, $seuilDistance, $notif)
     $stmt->execute($param);
 }
 
+// --------------------------- /requête permettant de mettre a jour les param---------------------------------------------------
 
 
 // Effectue la connexion à la BDD

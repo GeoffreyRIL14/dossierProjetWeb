@@ -36,14 +36,15 @@ session_start();
     </style>
     <script type="text/javascript">
 
-        /////////////////////////////
+        /////////////////////////////VARIABLE GLOBALE////////////////////////////////////////////////////////
         var init;
         var map;
         var pos;
         var bAjoutIncident = 0;
+        //AU CHARGEMENT DE LA PAGE
         $(document).ready(function($)
         {
-            //Requête Ajax permettant de vérifier si l'utilisateur existe
+            // --------------------------- Requête Ajax permettant de vérifier si l'utilisateur existe ---------------------------------------------------
             function verifUser() {
                 mdp = $.md5($('.connectPassword').val());
                 login = $('.connectLogin').val();
@@ -62,6 +63,7 @@ session_start();
                     }
                 });
             }
+            // --------------------------- Requête ajax mettant a jour les param utilisateurs ---------------------------------------------------
 
             function changeParam()
             {
@@ -85,6 +87,9 @@ session_start();
                     }
                 });
             }
+            // --------------------------- /Requête ajax mettant a jour les param utilisateurs ---------------------------------------------------
+
+            // --------------------------- Requête ajax recupérant les param utilisateurs ---------------------------------------------------
 
             function chargeParam()
             {
@@ -114,18 +119,28 @@ session_start();
                     }
                 });
             }
+            // --------------------------- /Requête ajax recupérant les param utilisateurs ---------------------------------------------------
+
+            // --------------------------- Recupération formulaire de connexion ---------------------------------------------------
+
             $('#formConnect').submit(function () {
                 verifUser();
                 return false;
             });
+            // --------------------------- /Recupération formulaire de connexion ---------------------------------------------------
+
+            // --------------------------- /Recupération formulaire de param ---------------------------------------------------
 
             $('#formParam').submit(function () {
                 changeParam();
                 recuperePos(1);
                 return false;
             });
+            // --------------------------- /Recupération formulaire de param ---------------------------------------------------
+
         });
-        //Requête ajax recupérant tous les incidents
+        // --------------------------- Requête ajax recupérant tous les incidents  ---------------------------------------------------
+
         function recupereIncidents() {
             $.ajax({
                 type: 'GET',
@@ -157,8 +172,10 @@ session_start();
                 }
             });
         }
+        // --------------------------- /Requête ajax recupérant tous les incidents  ---------------------------------------------------
 
-        //fonction JS recupérant la lattitute et longitude
+        // --------------------------- fonction JS recupérant la lattitute et longitude  ---------------------------------------------------
+
         function recuperePos(bAjoutInc) {
             bAjoutIncident = bAjoutInc;
             if (navigator.geolocation) {
@@ -171,6 +188,7 @@ session_start();
                 alert('Erreur : pas de support de la géolocalisation dans votre navigateur');
             }
         }
+        // --------------------------- /fonction JS recupérant la lattitute et longitude  ---------------------------------------------------
 
         function geo_ok(position) {
             var latitude = position.coords.latitude;
@@ -187,8 +205,8 @@ session_start();
         function geo_error(error) {
             alert(error.message + " / " + error.code);
         }
+        // --------------------------- Initialisation de la carte  ---------------------------------------------------
 
-        //Initialisation de la carte
         function Initialisation(latitude, longitude) {
             pos = new google.maps.LatLng(latitude, longitude);
             var myOptions = {
@@ -201,8 +219,10 @@ session_start();
             ajoutMarqueur();
             recupereIncidents();
         }
+        // --------------------------- /Initialisation de la carte  ---------------------------------------------------
 
-        //Ajoute UN marqueur et affiche la description de l'incident sur le click
+        // --------------------------- Ajoute UN marqueur et affiche la description de l'incident sur le click  ---------------------------------------------------
+
         function ajoutMarqueur(desc, lat, lng, idType, libelleIncident, idIncident, notation ) {
             var urlImage;
             if (lat != null) {
@@ -261,7 +281,10 @@ session_start();
             });
         }
 
-        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
+        // --------------------------- /Ajoute UN marqueur et affiche la description de l'incident sur le click  ---------------------------------------------------
+
+        // --------------------------- Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base  ---------------------------------------------------
+
         		function createUser(login, mdp)
         		{
         			$.ajax
@@ -282,6 +305,9 @@ session_start();
         				}
         			});
         		}
+        // --------------------------- /Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base  ---------------------------------------------------
+
+        // --------------------------- requête ajax permettant d'inserer les notifications  ---------------------------------------------------
 
         function insereNotification(idNotification, typeIncident, descriptionIncident) {
             var idJQNotif = '#notif_' + idNotification;
@@ -298,8 +324,11 @@ session_start();
                 $('#main').collapsibleset();
             }
         }
+        // --------------------------- /requête ajax permettant d'inserer les notifications  ---------------------------------------------------
 
-        //requête ajax permettant d'ajouter un nouvel incident
+        // --------------------------- requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
+
+
         function ajoutIncident(lat, lng) {
             var description = document.forms['incident'].desc.value;
             var idType = document.forms['incident'].typeIncident.value;
@@ -314,9 +343,10 @@ session_start();
                 }
             });
         }
+        // --------------------------- /requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
 
+        // ---------------------------requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
 
-        //requête ajax permettant d'ajouter un nouvel incident
         function noter(ajout, idIncident) {
             var idUser = <?php  echo (isset($_SESSION['idUser']))? intval($_SESSION['idUser']) : 0; ?> ;
              $.ajax({
@@ -340,6 +370,7 @@ session_start();
                 }
             });
         }
+        // ---------------------------/requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
 
         $(document).on('pageshow', '#pageConnecte', function(e, data){
             recuperePos(0);
@@ -348,7 +379,6 @@ session_start();
 
 </head>
 <body>
-<!-- page connecté -->
 
 
 <div id="main" role="main" data-role="content" class="ui-content">
@@ -359,7 +389,13 @@ session_start();
     else{?>
         <script>chargeParam();</script>
     <?php } ?>
+
+    <!-- -------------------------------------------------------------PAGE CONNECTE ---------------------------------------------------->
+
+
     <div data-role="page" id="pageConnecte">
+        <!-- ------------------------------------------------------------- PANEL SIGNALER INCIDENT ---------------------------------------------------->
+
         <div data-role="panel" id="signaler" data-position="right">
             <h2>Signaler un incident</h2>
             <form name = "incident" >
@@ -387,6 +423,9 @@ session_start();
             <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
             <a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
         </div>
+        <!-- ------------------------------------------------------------- /PANEL SIGNALER INCIDENT ---------------------------------------------------->
+
+        <!-- ------------------------------------------------------------- PANEL PARAM ---------------------------------------------------->
 
         <div data-role="panel" id="param">
             <h2>Modifier les paramètres utilisateurs</h2>
@@ -401,6 +440,7 @@ session_start();
             </form>
             <a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow"  data-inline="true" data-rel="close" style="margin: auto; ">retour</a>
         </div>
+        <!-- ------------------------------------------------------------- /PANEL PARAM---------------------------------------------------->
 
         <div data-role="popup" id="myPopup">
             <p>Alerte ajoutée</p>
@@ -418,7 +458,7 @@ session_start();
             </div>
 
             <div id="map"></div>
-            <!-- /footer -->
+            <!-- ------------------------------------------------------------- FOOTER ---------------------------------------------------->
             <div data-role="footer" data-position="fixed"  data-tap-toggle="false"  data-visible-on-page-show="false">
                 <div data-role="navbar">
                     <ul>
@@ -427,9 +467,12 @@ session_start();
                         <li><a href="#signaler" data-role="button" data-icon="location">Signaler incident</a></li>
                     </ul>
                 </div>
-            </div><!-- /footer -->
+            </div>
+            <!-- ------------------------------------------------------------- /FOOTER ---------------------------------------------------->
         </div>
     </div>
+    <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
+
     <!-- page inscription -->
     			<div data-role="page" id="pageInscription">
         				<div data-role="content" class="ui-content">
