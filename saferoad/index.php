@@ -296,7 +296,7 @@ session_start();
                 $('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
                 '<h2> ' + typeIncident + ' </h2>' +
                 '<p> ' + descriptionIncident + ' </p>' +
-                '<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
+                //'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
                 '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
                 '</div>');
 
