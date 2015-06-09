@@ -152,7 +152,7 @@ function getHidden($idUser)
 // --------------------------- requête permettant d'ajouter un incident ---------------------------------------------------
 function setIncident($desc, $idType,$lat, $lng)
 {
-    $date = date("Ymd");
+    $date = date("Y-m-d H:i:s");
     $bdd = getBdd();
     $incident = $bdd->prepare('INSERT INTO incident'
             . '(descriptionIncident, idCredibilite, incidentEnCours,idType, lattitudeIncident, longitudeIncident,dateHeureIncident)'

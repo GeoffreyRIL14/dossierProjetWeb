@@ -94,7 +94,7 @@ session_start();
                     data:{id: idUser, dist: distance, cred: credibilite, not: notif},
                     success: function(data){
                         chargeParam();
-                        recuperePos(1);
+                        recuperePos(0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -161,7 +161,6 @@ session_start();
                 data: {lat: latitude, lng: longitude},
                 success: function (data, textStatus, jqXHR) {
                     //Chaque incident
-                    console.log(data);
                     var incident = data.split("/");
                     for (var i = incident.length - 1; i >= 0; i--) {
                         //chaque argument d'incident
@@ -175,7 +174,6 @@ session_start();
                         var notation = param[6];
                         if (lat != null) {
                             ajoutMarqueur(description, lat, lng, idType,nomType, idIncident, notation);
-                            console.log(param[8]);
                             if (typeof param[8] == 'undefined')
                             {
                                 insereNotification(idIncident, nomType, description);
@@ -403,7 +401,6 @@ session_start();
                 url: './ajax/masquerIncident.php',
                 data: {idInc: idIncident },
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
@@ -472,7 +469,6 @@ session_start();
     <?php
 
     $LoginMdp   = verifCookie();
-    var_dump($LoginMdp);
     if ($LoginMdp != null)
     {
         $tabLoginMdp = explode($LoginMdp,"/");
