@@ -537,15 +537,7 @@ session_start();
             <!-- ------------------------------------------------------------- /FOOTER ---------------------------------------------------->
         </div>
     </div>
-    <!-- page inscription -->
-                <div data-role="page" id="pageInscription">
-                        <div data-role="content" class="ui-content">
-                                <p>Inscription nouvel utilisateur</p>
-                                <form name = "inscription">
-                <div data-role="page" id="pageInscription">
-                        <div data-role="content" class="ui-content">
-                                <p>Inscription nouvel utilisateur</p>
-                                <form name = "inscription">
+
     <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
 
     <!-- -------------------------------------------------------------PAGE INSCRIPTION ---------------------------------------------------->
@@ -557,35 +549,19 @@ session_start();
                                         <!-- partie pseudo -->
                                         <label for="info">Entrez votre email, qui sera aussi votre login :</label>
                                         <input name="newLogin" id="newPseudo"></input>
-                                        <!-- partie pseudo -->
-                                        <label for="info">Entrez votre email, qui sera aussi votre login :</label>
-                                        <input name="newLogin" id="newPseudo"></input>
-                						<!-- partie pseudo -->
-                						<label for="info">Entrez votre email, qui sera aussi votre login :</label>
-                						<input name="newLogin" id="newPseudo">
+
 
                                         <!-- partie mot de passe -->
                                         <label for="info">Entrez votre mot de passe :</label>
                                         <input type="password" name="newMdp" id="newPassword"></input>
-                                        <!-- partie mot de passe -->
-                                        <label for="info">Entrez votre mot de passe :</label>
-                                        <input type="password" name="newMdp" id="newPassword"></input>
-                						<!-- partie mot de passe -->
-                						<label for="info">Entrez votre mot de passe :</label>
-                						<input type="password" name="newMdp" id="newPassword">
+
 
                                         <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
                                     </form>
                             </div>
                     </div>
-                                        <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
-                                    </form>
-                            </div>
-                    </div>
-                						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
-                					</form>
-            				</div>
-        			</div>
+    <!-- -------------------------------------------------------------/PAGE INSCRIPTION ---------------------------------------------------->
+
     <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
 
     <!-- page non connecté -->
