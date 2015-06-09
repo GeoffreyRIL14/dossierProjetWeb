@@ -144,8 +144,6 @@ session_start();
             });
             // --------------------------- /Recupération formulaire de connexion ---------------------------------------------------
 
-            // --------------------------- /Recupération formulaire de param ---------------------------------------------------
-
             $('#formParam').submit(function () {
                 changeParam();
                 recuperePos(1);
@@ -321,6 +319,27 @@ session_start();
         			});
         		}
         // --------------------------- /Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base  ---------------------------------------------------
+        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
+                function createUser(login, mdp)
+                {
+                    $.ajax
+                    ({
+                        type: 'POST',
+                            url:'./ajax/createUser.php',
+                            data: '&l=' + login,
+                            success: function(data, textStatus, jqXHR)
+                        {
+                            if(data == "")
+                                {
+                                    alert(data);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert(errorThrown);
+                        }
+                    });
+                }
         /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
                 function createUser(login, mdp)
                 {
@@ -523,6 +542,10 @@ session_start();
                         <div data-role="content" class="ui-content">
                                 <p>Inscription nouvel utilisateur</p>
                                 <form name = "inscription">
+                <div data-role="page" id="pageInscription">
+                        <div data-role="content" class="ui-content">
+                                <p>Inscription nouvel utilisateur</p>
+                                <form name = "inscription">
     <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
 
     <!-- -------------------------------------------------------------PAGE INSCRIPTION ---------------------------------------------------->
@@ -534,6 +557,9 @@ session_start();
                                         <!-- partie pseudo -->
                                         <label for="info">Entrez votre email, qui sera aussi votre login :</label>
                                         <input name="newLogin" id="newPseudo"></input>
+                                        <!-- partie pseudo -->
+                                        <label for="info">Entrez votre email, qui sera aussi votre login :</label>
+                                        <input name="newLogin" id="newPseudo"></input>
                 						<!-- partie pseudo -->
                 						<label for="info">Entrez votre email, qui sera aussi votre login :</label>
                 						<input name="newLogin" id="newPseudo">
@@ -541,10 +567,17 @@ session_start();
                                         <!-- partie mot de passe -->
                                         <label for="info">Entrez votre mot de passe :</label>
                                         <input type="password" name="newMdp" id="newPassword"></input>
+                                        <!-- partie mot de passe -->
+                                        <label for="info">Entrez votre mot de passe :</label>
+                                        <input type="password" name="newMdp" id="newPassword"></input>
                 						<!-- partie mot de passe -->
                 						<label for="info">Entrez votre mot de passe :</label>
                 						<input type="password" name="newMdp" id="newPassword">
 
+                                        <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
+                                    </form>
+                            </div>
+                    </div>
                                         <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
                                     </form>
                             </div>
