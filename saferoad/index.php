@@ -34,6 +34,11 @@ session_start();
             height: 100%;
             margin: 0;
         }
+
+        .ui-btn
+        {
+            text-align: center;
+        }
     </style>
     <script type="text/javascript">
 
@@ -65,7 +70,7 @@ session_start();
                         if(data != 0)
                             chargeParam();
                         window.location.hash = '#pageConnecte' ;
-                        console.log(data);
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -316,6 +321,27 @@ session_start();
         			});
         		}
         // --------------------------- /Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base  ---------------------------------------------------
+        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
+                function createUser(login, mdp)
+                {
+                    $.ajax
+                    ({
+                        type: 'POST',
+                            url:'./ajax/createUser.php',
+                            data: '&l=' + login,
+                            success: function(data, textStatus, jqXHR)
+                        {
+                            if(data == "")
+                                {
+                                    alert(data);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert(errorThrown);
+                        }
+                    });
+                }
 
         // --------------------------- requête ajax permettant d'inserer les notifications  ---------------------------------------------------
 
@@ -327,7 +353,7 @@ session_start();
                 $('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
                 '<h2> ' + typeIncident + ' </h2>' +
                 '<p> ' + descriptionIncident + ' </p>' +
-                '<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
+                //'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
                 '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
                 '</div>');
 
@@ -345,7 +371,7 @@ session_start();
             $.ajax({
                 type: 'GET',
                 url: './ajax/ajoutIncident.php',
-                data: '&d=' + description + '&t=' + 1 + '&lat=' + lat + '&lng=' + lng,
+                data: '&d=' + description + '&t=' + idType + '&lat=' + lat + '&lng=' + lng,
                 success: function (data, textStatus, jqXHR) {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -441,8 +467,8 @@ session_start();
                 <label for="info">description</label>
                 <textarea name="desc" id="description" style="height:40%"></textarea>
             </form>
-            <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-btn-inline ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
-            <a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close" style="margin: auto; ">retour</a>
+            <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
+            <a href="#pageConnecte" class="ui-btn ui-corner-all ui-shadow" data-rel="close" style="margin: auto; margin-top: 50px;">retour</a>
         </div>
         <!-- ------------------------------------------------------------- /PANEL SIGNALER INCIDENT ---------------------------------------------------->
 
@@ -492,6 +518,11 @@ session_start();
             <!-- ------------------------------------------------------------- /FOOTER ---------------------------------------------------->
         </div>
     </div>
+    <!-- page inscription -->
+                <div data-role="page" id="pageInscription">
+                        <div data-role="content" class="ui-content">
+                                <p>Inscription nouvel utilisateur</p>
+                                <form name = "inscription">
     <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
 
     <!-- -------------------------------------------------------------PAGE INSCRIPTION ---------------------------------------------------->
@@ -500,14 +531,24 @@ session_start();
             					<p>Inscription nouvel utilisateur</p>
             					<form name = "inscription">
 
+                                        <!-- partie pseudo -->
+                                        <label for="info">Entrez votre email, qui sera aussi votre login :</label>
+                                        <input name="newLogin" id="newPseudo"></input>
                 						<!-- partie pseudo -->
                 						<label for="info">Entrez votre email, qui sera aussi votre login :</label>
                 						<input name="newLogin" id="newPseudo">
 
+                                        <!-- partie mot de passe -->
+                                        <label for="info">Entrez votre mot de passe :</label>
+                                        <input type="password" name="newMdp" id="newPassword"></input>
                 						<!-- partie mot de passe -->
                 						<label for="info">Entrez votre mot de passe :</label>
                 						<input type="password" name="newMdp" id="newPassword">
 
+                                        <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
+                                    </form>
+                            </div>
+                    </div>
                 						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
                 					</form>
             				</div>
@@ -529,9 +570,9 @@ session_start();
                     <label for="checkbox-enhanced" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">Mémoriser les identifiants</label>
                     <input class="checkboxMemoriser"  type="checkbox" name="checkboxMemoriser" id="checkbox-enhanced" data-enhanced="true">
                 </div>
-                <input class="ui-btn ui-icon-check ui-btn-icon-left" type="submit" name="connexion" value="Connexion">
+                <input class="ui-btn ui-icon-check ui-icon-left" type="submit" name="connexion" value="Connexion">
             </form>
-            <a href="#pageInscription" class="ui-btn ui-icon-user ui-btn-icon-left">Inscription</a>
+            <a href="#pageInscription" class="ui-btn" name="inscription" style="border-radius: .3125em; box-shadow: 0 2px 3px rgba(0,0,0,.15);">Inscription</a>
         </div>
     </div>
 </body>
