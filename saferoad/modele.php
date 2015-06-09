@@ -223,7 +223,30 @@ function setParamUser($idUser, $seuilCredib, $seuilDistance, $notif)
 
 // --------------------------- /requête permettant de mettre a jour les param---------------------------------------------------
 
+function setIdentifier($idUser, $identifier)
+{
+    $bdd = getBdd();
+    $requete = 'Update user'
+        . ' SET identifier = ?'
+        . ' WHERE idUser = ?';
+    $stmt = $bdd->prepare($requete);
+    $param = array($identifier, $idUser);
+    $stmt->execute($param);
+}
 
+function getUserToken($identifier)
+{
+    $bdd = getBdd();
+    $requete = 'SELECT idUser, pseudoUser, motDePasse'
+        . ' FROM user'
+        . ' WHERE identifier = ?';
+
+    $stmt = $bdd->prepare($requete);
+    $param = array($identifier);
+    $stmt->execute($param);
+    $ligne = $stmt->fetch();
+    return $ligne;
+}
 // Effectue la connexion à la BDD
 // Instancie et renvoie l'objet PDO associé
 function getBdd() {

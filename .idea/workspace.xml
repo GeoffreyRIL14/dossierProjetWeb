@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f3d58bf-84b1-4103-b742-17d9d88198c0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/saferoad/verifCookie.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saferoad/index.php" afterPath="$PROJECT_DIR$/saferoad/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saferoad/modele.php" afterPath="$PROJECT_DIR$/saferoad/modele.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saferoad/ajax/verifUser.php" afterPath="$PROJECT_DIR$/saferoad/ajax/verifUser.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="saferoadgit.iws" />
@@ -32,25 +34,47 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saferoad/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.4727273" vertical-offset="6023" max-vertical-offset="8857">
-              <caret line="372" column="16" selection-start-line="372" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+            <state vertical-scroll-proportion="-323.03845" vertical-offset="509" max-vertical-offset="9248">
+              <caret line="524" column="55" selection-start-line="524" selection-start-column="55" selection-end-line="524" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modele.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="verifUser.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/saferoad/ajax/verifUser.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="527">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="verifCookie.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/saferoad/verifCookie.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.43889844" vertical-offset="0" max-vertical-offset="1088">
+              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+              <folding>
+                <element signature="e#6#89#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modele.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saferoad/modele.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4229765" vertical-offset="3510" max-vertical-offset="4148">
-              <caret line="216" column="28" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
+            <state vertical-scroll-proportion="-10.076923" vertical-offset="3648" max-vertical-offset="4539">
+              <caret line="230" column="23" selection-start-line="230" selection-start-column="23" selection-end-line="230" selection-end-column="23" />
               <folding>
-                <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-                <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-                <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-                <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-                <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-                <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+                <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+                <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+                <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+                <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+                <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+                <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -84,13 +108,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/saferoad/ajax/verifUser.php" />
         <option value="$PROJECT_DIR$/saferoad/ajax/chargeParam.php" />
         <option value="$PROJECT_DIR$/saferoad/ajax/recupereIncidents.php" />
         <option value="$PROJECT_DIR$/saferoad/ajax/ajouterCommentaire.php" />
         <option value="$PROJECT_DIR$/saferoad/ajax/noter.php" />
-        <option value="$PROJECT_DIR$/saferoad/index.php" />
+        <option value="$PROJECT_DIR$/saferoad/ajax/verifCookie" />
+        <option value="$PROJECT_DIR$/saferoad/ajax/verifCookie.php" />
         <option value="$PROJECT_DIR$/saferoad/modele.php" />
+        <option value="$PROJECT_DIR$/saferoad/ajax/verifUser.php" />
+        <option value="$PROJECT_DIR$/saferoad/index.php" />
+        <option value="$PROJECT_DIR$/saferoad/verifCookie.php" />
       </list>
     </option>
   </component>
@@ -186,6 +213,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
+    <property name="options.lastSelected" value="editor.preferences.appearance" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\saferoadgit\saferoad" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -202,6 +237,9 @@
       <BehatRunner />
       <method />
     </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
@@ -209,9 +247,6 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -236,7 +271,6 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2913386" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -246,12 +280,13 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.04784689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2913386" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -275,21 +310,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/saferoad/modele.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1146" max-vertical-offset="3519">
-          <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
-          <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saferoad/ajax/noter.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="765">
@@ -319,12 +339,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1146" max-vertical-offset="3519">
           <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -358,12 +378,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1146" max-vertical-offset="3519">
           <caret line="93" column="1" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -426,12 +446,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="753" max-vertical-offset="2890">
           <caret line="73" column="130" selection-start-line="73" selection-start-column="130" selection-end-line="73" selection-end-column="130" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -478,12 +498,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="753" max-vertical-offset="2890">
           <caret line="73" column="130" selection-start-line="73" selection-start-column="130" selection-end-line="73" selection-end-column="130" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -523,12 +543,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2873">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -568,12 +588,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1955">
           <caret line="8" column="28" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="28" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -606,12 +626,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1955">
           <caret line="8" column="28" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="28" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -637,12 +657,12 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="854" max-vertical-offset="1734">
           <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -658,13 +678,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="374">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saferoad/ajax/verifUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="340">
-          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -712,25 +725,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saferoad/index.php">
+    <entry file="file://$PROJECT_DIR$/saferoad/modele.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.4727273" vertical-offset="6023" max-vertical-offset="8857">
-          <caret line="372" column="16" selection-start-line="372" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+        <state vertical-scroll-proportion="-10.076923" vertical-offset="3648" max-vertical-offset="4539">
+          <caret line="230" column="23" selection-start-line="230" selection-start-column="23" selection-end-line="230" selection-end-column="23" />
+          <folding>
+            <marker date="1433832663684" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
+            <marker date="1433832663684" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
+            <marker date="1433832663684" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
+            <marker date="1433832663684" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
+            <marker date="1433832663684" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saferoad/ajax/verifUser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="527">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saferoad/modele.php">
+    <entry file="file://$PROJECT_DIR$/saferoad/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4229765" vertical-offset="3510" max-vertical-offset="4148">
-          <caret line="216" column="28" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
+        <state vertical-scroll-proportion="-323.03845" vertical-offset="509" max-vertical-offset="9248">
+          <caret line="524" column="55" selection-start-line="524" selection-start-column="55" selection-end-line="524" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saferoad/verifCookie.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43889844" vertical-offset="0" max-vertical-offset="1088">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
           <folding>
-            <marker date="1433693186341" expanded="true" signature="1892:1968" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="4839:4884" placeholder="SELECT nomTy..incident..." />
-            <marker date="1433693186341" expanded="true" signature="5262:5455" placeholder="INSERT INTO ..." />
-            <marker date="1433693186341" expanded="true" signature="6557:6596" placeholder="SELECT * FRO..user..." />
-            <marker date="1433693186341" expanded="true" signature="7165:7244" placeholder="SELECT enabl..user..." />
-            <marker date="1433693186341" expanded="true" signature="7724:7811" placeholder="INSERT INTO ..." />
+            <element signature="e#6#89#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

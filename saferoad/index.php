@@ -1,5 +1,6 @@
 <?php
 require 'modele.php';
+require 'verifCookie.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -48,15 +49,23 @@ session_start();
             function verifUser() {
                 mdp = $.md5($('.connectPassword').val());
                 login = $('.connectLogin').val();
+                if ($('.checkboxMemoriser').is(":checked"))
+                {
+                    $mem = 1;
+                }
+                else
+                {
+                    $mem = 0;
+                }
                 $.ajax({
                     type: 'POST',
                     url: './ajax/verifUser.php',
-                    data: {l: login, m: mdp},
+                    data: {l: login, m: mdp ,mem:$mem},
                     success: function (data) {
                         if(data != 0)
                             chargeParam();
                         window.location.hash = '#pageConnecte' ;
-
+                        console.log(data);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -125,6 +134,7 @@ session_start();
 
             $('#formConnect').submit(function () {
                 verifUser();
+
                 return false;
             });
             // --------------------------- /Recupération formulaire de connexion ---------------------------------------------------
@@ -382,8 +392,19 @@ session_start();
 
 
 <div id="main" role="main" data-role="content" class="ui-content">
+    <?php
 
-    <?php if (!isset($_SESSION['id']) || !getVerifUser($_COOKIE['SFlogin'],$_COOKIE['SFmdp'])){?>
+    $LoginMdp   = verifCookie();
+    var_dump($LoginMdp);
+    if ($LoginMdp != null)
+    {
+        $tabLoginMdp = explode($LoginMdp,"/");
+        $Login      = $tabLoginMdp[0];
+        $Mdp        = $tabLoginMdp[1];
+    }
+
+
+     if (!isset($_SESSION['id']) || ($LoginMdp != null &&!getVerifUser($Login,$Mdp))){?>
         <script>document.location.hash = 'pageNonConnecte';</script>
     <?php }
     else{?>
@@ -473,7 +494,7 @@ session_start();
     </div>
     <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
 
-    <!-- page inscription -->
+    <!-- -------------------------------------------------------------PAGE INSCRIPTION ---------------------------------------------------->
     			<div data-role="page" id="pageInscription">
         				<div data-role="content" class="ui-content">
             					<p>Inscription nouvel utilisateur</p>
@@ -481,16 +502,18 @@ session_start();
 
                 						<!-- partie pseudo -->
                 						<label for="info">Entrez votre email, qui sera aussi votre login :</label>
-                						<input name="newLogin" id="newPseudo"></input>
+                						<input name="newLogin" id="newPseudo">
 
                 						<!-- partie mot de passe -->
                 						<label for="info">Entrez votre mot de passe :</label>
-                						<input type="password" name="newMdp" id="newPassword"></input>
+                						<input type="password" name="newMdp" id="newPassword">
 
                 						<button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>
                 					</form>
             				</div>
         			</div>
+    <!-- -------------------------------------------------------------/PAGE CONNECTE ---------------------------------------------------->
+
     <!-- page non connecté -->
     <div data-role="page" id="pageNonConnecte">
         <div data-role="content" class="ui-content">
@@ -504,7 +527,7 @@ session_start();
 
                 <div class="ui-checkbox">
                     <label for="checkbox-enhanced" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">Mémoriser les identifiants</label>
-                    <input type="checkbox" name="checkbox-enhanced" id="checkbox-enhanced" data-enhanced="true">
+                    <input class="checkboxMemoriser"  type="checkbox" name="checkboxMemoriser" id="checkbox-enhanced" data-enhanced="true">
                 </div>
                 <input class="ui-btn ui-icon-check ui-btn-icon-left" type="submit" name="connexion" value="Connexion">
             </form>
