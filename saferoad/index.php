@@ -94,7 +94,7 @@ session_start();
                     data:{id: idUser, dist: distance, cred: credibilite, not: notif},
                     success: function(data){
                         chargeParam();
-                        recupereIncidents(1);
+                        recuperePos(1);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -154,13 +154,14 @@ session_start();
         });
         // --------------------------- Requête ajax recupérant tous les incidents  ---------------------------------------------------
 
-        function recupereIncidents() {
+        function recupereIncidents(latitude, longitude) {
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: './ajax/recupereIncidents.php',
-                data: {},
+                data: {lat: latitude, lng: longitude},
                 success: function (data, textStatus, jqXHR) {
                     //Chaque incident
+                    console.log(data);
                     var incident = data.split("/");
                     for (var i = incident.length - 1; i >= 0; i--) {
                         //chaque argument d'incident
@@ -174,7 +175,11 @@ session_start();
                         var notation = param[6];
                         if (lat != null) {
                             ajoutMarqueur(description, lat, lng, idType,nomType, idIncident, notation);
-                            insereNotification(idIncident, nomType, description);
+                            console.log(param[8]);
+                            if (typeof param[8] == 'undefined')
+                            {
+                                insereNotification(idIncident, nomType, description);
+                            }
                         }
                     }
                     ;
@@ -226,11 +231,18 @@ session_start();
                 zoom: 13,
                 center: pos,
                 draggable : false,
+                disableDoubleClickZoom: true,
+                keyboardShortcuts: false,
+                overviewMapControl: false,
+                rotateControl: false,
+                scrollwheel: false,
+                streetViewControl: false,
+                zoomControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             map = new google.maps.Map(document.getElementById("map"), myOptions);
             ajoutMarqueur();
-            recupereIncidents();
+            recupereIncidents(latitude,longitude);
         }
         // --------------------------- /Initialisation de la carte  ---------------------------------------------------
 
@@ -275,7 +287,7 @@ session_start();
             }
 
             var marqueur = new google.maps.Marker(optionsMarqueur);
-            if (idtype = null)
+            if (idType == null)
             {
                 var contenuInfoBulle = 'Votre position';
             }
@@ -372,8 +384,7 @@ session_start();
                 $('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
                 '<h2> ' + typeIncident + ' </h2>' +
                 '<p> ' + descriptionIncident + ' </p>' +
-                //'<button class=\"ui-btn ui-btn-inline ui-mini\">Editer</button>' +
-                '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"$(\'#notif_' + idNotification + '\').hide()\">Masquer</button>' +
+                '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"masquerIncident('+  idNotification+ '  )\">Masquer</button>' +
                 '</div>');
 
                 $('#main').collapsibleset();
@@ -381,10 +392,31 @@ session_start();
         }
         // --------------------------- /requête ajax permettant d'inserer les notifications  ---------------------------------------------------
 
+        // --------------------------- requête ajax permettant de masquer les notifications  ---------------------------------------------------
+
+        function masquerIncident(idIncident)
+        {
+            alert(idIncident);
+            $('#notif_' + idIncident ).hide()
+            $.ajax({
+                type: 'POST',
+                url: './ajax/masquerIncident.php',
+                data: {idInc: idIncident },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+        // --------------------------- /requête ajax permettant de masquer les notifications  ---------------------------------------------------
+
         // --------------------------- requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
 
 
         function ajoutIncident(lat, lng) {
+            alert("test");
             var description = document.forms['incident'].desc.value;
             var idType = document.forms['incident'].typeIncident.value;
             $.ajax({
@@ -519,7 +551,6 @@ session_start();
             <div class = "notification" data-role = "collapsible" id = "notif_0" hidden>
                 <h2> vide </h2>
                 <p> vide </p>
-                <button class="ui-btn ui-btn-inline ui-mini">Editer</button>
                 <button class="ui-btn ui-btn-inline ui-mini" onclick="$('#notif_0').hide()">Masquer</button>
             </div>
 
@@ -553,7 +584,7 @@ session_start();
 
                                         <!-- partie mot de passe -->
                                         <label for="info">Entrez votre mot de passe :</label>
-                                        <input type="password" name="newMdp" id="newPassword"></input>
+                                        <input type="password" name="newMdp" id="newPassword">
 
 
                                         <button onclick = "createUser(document.forms['inscription'].newLogin.value)" class="ui-btn ui-icon-check ui-btn-icon-left">Valider</button>

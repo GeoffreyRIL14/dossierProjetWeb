@@ -97,10 +97,20 @@ function getSeuilDistanceMax($idUser)
 //    $credibilite->execute($param);
 //    return $credibilite->fetch();
 //}
+// --------------------------- requête permettant de masquer les notifs ---------------------------------------------------
 
+function setMasque($idIncident, $idUser)
+{
+    $bdd = getBdd();
+    $incident = $bdd->prepare('INSERT INTO masquer'
+        . '(idIncident, idUser)'
+        . ' VALUES (?,?)');
+    $param = array($idIncident, $idUser);
+    $incident->execute($param);
+}
 // --------------------------- requête permettant de recuperer les incidents ---------------------------------------------------
 
-function getIncident($lattitude, $longitude, $distance)
+function getIncident($lattitude, $longitude, $distance, $idUser)
 {
     $bdd = getBdd();
     $formule="(6366*acos(cos(radians(".$lattitude."))*cos(radians(`lattitudeIncident`))*cos(radians(`longitudeIncident`)-radians(".$longitude."))+sin(radians(".$lattitude."))*sin(radians(`lattitudeIncident`))))";
@@ -111,7 +121,8 @@ function getIncident($lattitude, $longitude, $distance)
 
 
     $stmt = $bdd->prepare($requete);
-    $stmt->execute();
+    $param = array($idUser);
+    $stmt->execute($param);
     $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $lignes;
 }
@@ -126,6 +137,17 @@ function getIncident($lattitude, $longitude, $distance)
 //    $stmt->execute($param);
 //    return $stmt;
 //}
+
+// recuperation des incidents à ne pas afficher en notification
+function getHidden($idUser)
+{
+    $bdd = getBdd();
+    $stmt = $bdd->prepare('SELECT idIncident FROM masquer WHERE idUser = ?');
+    $param = array($idUser);
+    $stmt->execute($param);
+    $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $lignes;
+}
 
 // --------------------------- requête permettant d'ajouter un incident ---------------------------------------------------
 function setIncident($desc, $idType,$lat, $lng)
