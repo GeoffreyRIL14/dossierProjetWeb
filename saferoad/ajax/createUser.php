@@ -5,7 +5,7 @@
  		$login = $_POST['l'];
 	}
 
-	if (getVerifUser($login) == true)
+	if (getLoginUser($login) == true)
 	{
 		header("localhost/saferoad/index.php#pageInscription");		
 	}

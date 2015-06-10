@@ -177,7 +177,8 @@ function getVerifUser($login, $mdp)
     if ($user->rowcount() == 0) {
         $ligne = null;
     }
-        return $ligne;
+
+    return $ligne;
 }
 
 // --------------------------- /requête permettant de verifier l'existance d'un user ---------------------------------------------------

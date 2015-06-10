@@ -54,6 +54,7 @@ session_start();
             function verifUser() {
                 mdp = $.md5($('.connectPassword').val());
                 login = $('.connectLogin').val();
+
                 if ($('.checkboxMemoriser').is(":checked"))
                 {
                     $mem = 1;
@@ -68,8 +69,10 @@ session_start();
                     data: {l: login, m: mdp ,mem:$mem},
                     success: function (data) {
                         if(data != 0)
+                        {
                             chargeParam();
-                        window.location.hash = '#pageConnecte' ;
+                            window.location.hash = '#pageConnecte' ;
+                        }
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -139,7 +142,6 @@ session_start();
 
             $('#formConnect').submit(function () {
                 verifUser();
-
                 return false;
             });
             // --------------------------- /Recupération formulaire de connexion ---------------------------------------------------
@@ -355,7 +357,7 @@ session_start();
                 {
                     $.ajax
                     ({
-                        type: 'POST',
+                            type: 'POST',
                             url:'./ajax/createUser.php',
                             data: '&l=' + login,
                             success: function(data, textStatus, jqXHR)
@@ -477,7 +479,7 @@ session_start();
     }
 
 
-     if (!isset($_SESSION['id']) || ($LoginMdp != null &&!getVerifUser($Login,$Mdp))){?>
+     if (!isset($_SESSION['id'])){?>
         <script>document.location.hash = 'pageNonConnecte';</script>
     <?php }
     else{?>
