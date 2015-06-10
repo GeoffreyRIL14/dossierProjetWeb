@@ -68,7 +68,6 @@ session_start();
                     url: './ajax/verifUser.php',
                     data: {l: login, m: mdp ,mem:$mem},
                     success: function (data) {
-                        alert(data);
                         if(data != 0)
                         {
                             chargeParam();
@@ -357,7 +356,6 @@ session_start();
 
         function masquerIncident(idIncident)
         {
-            alert(idIncident);
             $('#notif_' + idIncident ).hide()
             $.ajax({
                 type: 'POST',
@@ -376,7 +374,6 @@ session_start();
 
 
         function ajoutIncident(lat, lng) {
-            alert("test");
             var description = document.forms['incident'].desc.value;
             var idType = document.forms['incident'].typeIncident.value;
             $.ajax({
