@@ -97,7 +97,6 @@ session_start();
                     data:{id: idUser, dist: distance, cred: credibilite, not: notif},
                     success: function(data){
                         chargeParam();
-                        recuperePos(0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown);
@@ -148,7 +147,7 @@ session_start();
 
             $('#formParam').submit(function () {
                 changeParam();
-                recuperePos(1);
+                recuperePos(0);
                 return false;
             });
             // --------------------------- /Recupération formulaire de param ---------------------------------------------------
