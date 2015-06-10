@@ -8,7 +8,7 @@ $mdp = $m;
 $Memorise = $mem;
 $idUser = array();
 $idUser = getVerifUser($login, $mdp);
-if ($idUser = null) {
+if ($idUser != null) {
     $_SESSION['idUser'] = $idUser[0]['idUser'];
     if ($Memorise == 1)
     {

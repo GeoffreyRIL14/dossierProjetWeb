@@ -68,6 +68,7 @@ session_start();
                     url: './ajax/verifUser.php',
                     data: {l: login, m: mdp ,mem:$mem},
                     success: function (data) {
+                        alert(data);
                         if(data != 0)
                         {
                             chargeParam();
@@ -310,16 +311,17 @@ session_start();
 
         // --------------------------- Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base  ---------------------------------------------------
 
-        		function createUser(login, mdp)
+        		function createUser(login)
         		{
+                    var mdp = document.forms['inscription'].newMdp.value;
         			$.ajax
         			({
         				type: 'POST',
             				url:'./ajax/createUser.php',
-            				data: '&l=' + login,
+            				data:{ l:login ,pass: mdp},
             				success: function(data, textStatus, jqXHR)
         				{
-        					if(data == "")
+        					if(data != "")
             					{
             						alert(data);
         					}
@@ -331,48 +333,7 @@ session_start();
         			});
         		}
         // --------------------------- /Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base  ---------------------------------------------------
-        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
-                function createUser(login, mdp)
-                {
-                    $.ajax
-                    ({
-                        type: 'POST',
-                            url:'./ajax/createUser.php',
-                            data: '&l=' + login,
-                            success: function(data, textStatus, jqXHR)
-                        {
-                            if(data == "")
-                                {
-                                    alert(data);
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert(errorThrown);
-                        }
-                    });
-                }
-        /*Requête Ajax permettant de vérifier si le login n'est pas utlisé et l'inscrit dans la base*/
-                function createUser(login, mdp)
-                {
-                    $.ajax
-                    ({
-                            type: 'POST',
-                            url:'./ajax/createUser.php',
-                            data: '&l=' + login,
-                            success: function(data, textStatus, jqXHR)
-                        {
-                            if(data == "")
-                                {
-                                    alert(data);
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert(errorThrown);
-                        }
-                    });
-                }
+
 
         // --------------------------- requête ajax permettant d'inserer les notifications  ---------------------------------------------------
 
