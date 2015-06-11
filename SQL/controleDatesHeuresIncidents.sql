@@ -1,4 +1,0 @@
-CREATE DEFINER=`root`@`localhost` 
-EVENT `controleDatesHeuresIncidents` 
-ON SCHEDULE EVERY '0:15' HOUR_MINUTE STARTS '2015-06-01 23:15:34' 
-ON COMPLETION PRESERVE ENABLE DO CALL nettoyerAnciensIncidents()

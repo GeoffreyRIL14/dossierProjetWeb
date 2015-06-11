@@ -1,0 +1,16 @@
+-Faire la page d'inscription(inscription par mail) 
+-Memoriser les identifiants à l'aide de cookie (utiliser méthode token!)
+-figer la carte autour de la geoloc
+-rendre fonctionnel les paramètres utilisateur(charger les paramètres) FAIT
+-faire le système de crédibilité ANTOINE
+-finir le systeme de notification (on ne peux pas éditer, peaufiner le bazar) GEOFFREY
+-fixer le footer FAIT 
+-mettre la hauteur de carte dynamique ANTOINE
+-Améliorer le design (alignement des boutons) ALEXANDRE
+-Commenter le code ANTOINE
+-Faire les triggers(suppression incident après 4h) GEOFFREY en local->OK(version 4h après dateHeure création... peut être potentiellement amélioré en utilisant la dernière date de +1 ou de commentaire... à discuter) sur le serveur ->NOK (problème de droits...) 
+-Faire le powerPoint ALEXANDRE
+-Enlever le controle du zoom sur l'api de Google
+-corrections ajout incidents 4 types d'incidents OK
+-bug : on peut évaluer notre position courante sur la carte
+-a discuter : pour les commentaires est-ce que le dernier commentaire pour un utilisateur donné écrase son commentaire précédent? (s'il y en avait un)

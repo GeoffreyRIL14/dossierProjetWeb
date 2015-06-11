@@ -1,5 +1,0 @@
-enableHighAccuracy : (true ou false > valeur par défaut) obtient une position plus précise via GPS
-
-timeout : (type long ou Infinity > valeur par défaut) durée avant renvoi vers la function d'erreur
-
-maximumAge : (type long ou Infinity, 0 > valeur par défaut) durée de la mise en cache de la position courante, si maximumAge:0 alors la position ne viendra jamais du cache, elle sera toujours renouvelée
