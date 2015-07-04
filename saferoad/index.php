@@ -47,6 +47,7 @@ session_start();
         var map;
         var pos;
         var bAjoutIncident = 0;
+        var idIncid = -1;
         //AU CHARGEMENT DE LA PAGE
         $(document).ready(function($)
         {
@@ -178,6 +179,8 @@ session_start();
                             if (typeof param[8] == 'undefined')
                             {
                                 insereNotification(idIncident, nomType, description);
+                                recupereCommentaires(idIncident);
+                                // insertion de commentaires
                             }
                         }
                     }
@@ -191,8 +194,37 @@ session_start();
         }
         // --------------------------- /Requête ajax recupérant tous les incidents  ---------------------------------------------------
 
-        // --------------------------- fonction JS recupérant la lattitute et longitude  ---------------------------------------------------
+        // --------------------------- Requête ajax recupérant tous les commentaires d'un incident  ---------------------------------------------------
+        function recupereCommentaires(idIncident) {
+            $.ajax({
+                type: 'GET',
+                url: './ajax/recupereCommentaires.php',
+                data: {inc: idIncident},
+                success: function (data, textStatus, jqXHR) {
 
+                    var commentaires = data.split("/");
+                    for (var j = 0; j < commentaires.length - 1; j++) {
+                        dataComment = commentaires[j].split(",");
+
+                        //dataComment[0]; // idCommentaire
+                        //dataComment[1]; // description
+                        //dataComment[2]; // dateCommentaire
+                        //dataComment[3]; // pseudoUser
+
+                        // paragraphe à inserer juste avant le bouton de masquage
+                        $("#mask_" + idIncident).before('<p><span style="font-style:italic">' + dataComment[3] + ' [' + dataComment[2] + ']</span> : ' + dataComment[1] + ' </p>');
+                    }
+                    ;
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+        // --------------------------- /Requête ajax recupérant tous les commentaires d'un incident  ---------------------------------------------------
+
+        // --------------------------- fonction JS recupérant la lattitute et longitude  ---------------------------------------------------
         function recuperePos(bAjoutInc) {
             bAjoutIncident = bAjoutInc;
             if (navigator.geolocation) {
@@ -340,10 +372,11 @@ session_start();
 
             if ($(idJQNotif).length <= 0) {
 
-                $('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id = \"notif_' + idNotification + '\">' +
+                $('#notif_0').before('<div class = \"notification\" data-role = \"collapsible" id =\"notif_' + idNotification + '\">' +
                 '<h2> ' + typeIncident + ' </h2>' +
-                '<p> ' + descriptionIncident + ' </p>' +
-                '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"masquerIncident('+  idNotification+ '  )\">Masquer</button>' +
+                '<h4> ' + descriptionIncident + ' </h4>' +
+                '<button class=\"ui-btn ui-btn-inline ui-mini\" onclick=\"masquerIncident('+ idNotification +')\" id =\"mask_' + idNotification + '\">Masquer</button>' +
+                '<a href=\"#popupAjoutCom\" onclick = \"idIncid = '+ idNotification + ';\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-btn-inline ui-mini\"> Ajouter un commentaire </a>' +
                 '</div>');
 
                 $('#main').collapsibleset();
@@ -387,6 +420,30 @@ session_start();
             });
         }
         // --------------------------- /requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
+
+        // --------------------------- requête ajax permettant d'ajouter un nouveau commentaire ------------------------------------------------
+        function ajoutCommentaire() {
+            var comment = document.forms['commentaire'].comment.value;
+            var idUser = <?php  echo (isset($_SESSION['idUser']))? intval($_SESSION['idUser']) : -1; ?> ;
+
+            if(idIncid != -1 && idUser != -1 && comment.length > 0) {
+                $.ajax({
+                    type: 'GET',
+                    url: './ajax/ajouterCommentaire.php',
+                    data: '&c=' + comment + '&i=' + idIncid + '&u=' + idUser,
+                    success: function (data, textStatus, jqXHR) {
+                            if(data.length > 0){
+                                $("#mask_" + idIncid).before('<p><span style="font-style:italic"> [' + data + ']</span> : ' + comment + ' </p>');                                
+                                //alert(data);before
+                            }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+        }
+        // --------------------------- /requête ajax permettant d'ajouter un nouveau commentaire ---------------------------------------------
 
         // ---------------------------requête ajax permettant d'ajouter un nouvel incident ---------------------------------------------------
 
@@ -445,9 +502,17 @@ session_start();
 
     <!-- -------------------------------------------------------------PAGE CONNECTE ---------------------------------------------------->
 
-
     <div data-role="page" id="pageConnecte">
         <!-- ------------------------------------------------------------- PANEL SIGNALER INCIDENT ---------------------------------------------------->
+
+        <div data-role="popup" id="popupAjoutCom" class="ui-content">
+            <form name="commentaire">
+                <h3>Ajouter un commentaire :</h3>
+                <input type="text" name="comment" id="Com" style="height:40vh; width:40vw">
+                <a href="#pageConnecte" onclick = "ajoutCommentaire()" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="close" style="width:auto">Envoyer</button>
+                <a href="#pageConnecte" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="close" style="width:auto">Retour</a>
+            </form>
+        </div>
 
         <div data-role="panel" id="signaler" data-position="right">
             <h2>Signaler un incident</h2>

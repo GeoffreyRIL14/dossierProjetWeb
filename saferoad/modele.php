@@ -283,3 +283,34 @@ catch(PDOException $e) {
 }
   return $bdd;
 }
+
+// --------------------------- requête permettant d'ajouter un commentaire ---------------------------------------------------
+function ajoutCommentaire($commentaire, $idInci, $user)
+{
+    $date = date("Y-m-d H:i:s");
+    $bdd = getBdd();
+    $incident = $bdd->prepare('INSERT INTO commentaire (description, dateCommentaire, idUser, idIncident) VALUES (?,?,?,?)');
+    $param = array($commentaire, $date, $user, $idInci);
+    $incident->execute($param);
+
+    echo $date;
+}
+// --------------------------- /requête permettant d'ajouter un commentaire ---------------------------------------------------
+
+// --------------------------- requête permettant de récuperer les commentaires ---------------------------------------------------
+function getcommentaires($idIncident)
+{
+    $bdd = getBdd();
+    $requete = 'SELECT commentaire.idCommentaire, commentaire.description, commentaire.dateCommentaire, user.pseudoUser'
+        . ' FROM commentaire'
+        . ' INNER JOIN user ON(user.idUser = commentaire.idUser)'
+        . ' WHERE idIncident = ?';
+
+
+    $stmt = $bdd->prepare($requete);
+    $param = array($idIncident);
+    $stmt->execute($param);
+    $lignes = $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $lignes;
+}
+// --------------------------- /requête permettant de récuperer les commentaires ---------------------------------------------------
