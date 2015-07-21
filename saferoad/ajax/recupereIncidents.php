@@ -5,7 +5,7 @@ extract($_POST);
 $lat = $lat;
 $long = $lng;
 $idUser = $_SESSION['idUser'];
-$distanceA = getSeuilDistanceMax(1) ;
+$distanceA = getSeuilDistanceMax($idUser) ;
 $distance = intval($distanceA[0]);
 $incidents = getIncident($lat,$long, $distance, $idUser);
 $incidentsToHide = getHidden($idUser);
