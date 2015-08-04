@@ -164,6 +164,7 @@ session_start();
                 data: {lat: latitude, lng: longitude},
                 success: function (data, textStatus, jqXHR) {
                     //Chaque incident
+
                     var incident = data.split("/");
                     for (var i = incident.length - 1; i >= 0; i--) {
                         //chaque argument d'incident
@@ -536,6 +537,7 @@ session_start();
 <!--                    setInterval("recuperePos(0)", 10000);-->
 <!--                    setInterval("recuperePos(1)", 11000);-->
 <!--                </script>-->
+                <label for="info" style="margin-top: 20px;">Description</label>
                 <textarea name="desc" id="description" style="margin: auto; height:40%;"></textarea>
             </form>
             <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-corner-all ui-shadow" style="margin: auto; margin-top: 20px;">Envoyer</a>
