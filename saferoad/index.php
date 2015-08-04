@@ -9,6 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="sr_b2.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
@@ -535,11 +536,10 @@ session_start();
 <!--                    setInterval("recuperePos(0)", 10000);-->
 <!--                    setInterval("recuperePos(1)", 11000);-->
 <!--                </script>-->
-                <label for="info">description</label>
-                <textarea name="desc" id="description" style="height:40%"></textarea>
+                <textarea name="desc" id="description" style="margin: auto; height:40%;"></textarea>
             </form>
-            <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-corner-all ui-shadow" style="margin: auto; ">Envoyer</a>
-            <a href="#pageConnecte" class="ui-btn ui-corner-all ui-shadow" data-rel="close" style="margin: auto; margin-top: 50px;">retour</a>
+            <a href="#myPopup" data-rel="popup" onclick = "recuperePos(1);"  class="ui-btn ui-corner-all ui-shadow" style="margin: auto; margin-top: 20px;">Envoyer</a>
+            <a href="#pageConnecte" class="ui-btn ui-corner-all ui-shadow" data-rel="close" style="margin: auto; margin-top: 20px;">Retour</a>
         </div>
         <!-- ------------------------------------------------------------- /PANEL SIGNALER INCIDENT ---------------------------------------------------->
 
@@ -549,14 +549,14 @@ session_start();
             <h2>Modifier les paramètres utilisateurs</h2>
             <form id = formParam  method="POST">
                 <p>Seuil de crédibilité minimum</p>
-                <input class="paramCredibilite" type="range" name="points" id="cred" value="20" min="-20" max="100" data-show-value="true">
+                <input class="paramCredibilite" type="range" name="points" id="cred" value="20" min="-20" max="100" data-show-value="true" style="background-color : #f6f6f6">
                 <p>Seuil de distance maximum des incidents </p>
-                <input class="paramDistance" type="range" name="Km" id="km" value="20" min="5" max="100" data-show-value="true">
+                <input class="paramDistance" type="range" name="Km" id="km" value="20" min="1" max="100" data-show-value="true" style="background-color : #f6f6f6">
                 <p>Notifications </p>
-                <input class="paramNotif" type="checkbox" data-role="flipswitch" name="switch" id="switch">
-                <input type="submit" data-inline="true" name="param" value="Sauvegarder">
+                <input class="paramNotif" type="checkbox" data-role="flipswitch" name="switch" id="switch" style="margin: auto;">
+                <input type="submit" name="param" value="Sauvegarder" style="margin: auto; margin-top: 20px;">
             </form>
-            <a href="#pageConnecte" class="ui-btn ui-btn-inline ui-corner-all ui-shadow"  data-inline="true" data-rel="close" style="margin: auto; ">retour</a>
+            <a href="#pageConnecte" class="ui-btn ui-corner-all ui-shadow" data-rel="close" style="margin: auto; margin-top: 20px;">Retour</a>
         </div>
         <!-- ------------------------------------------------------------- /PANEL PARAM---------------------------------------------------->
 
